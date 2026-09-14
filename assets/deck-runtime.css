@@ -1,0 +1,164 @@
+/* ================================================================
+   deck-runtime.css: HTML 발표자료 장면(step) 런타임 스타일
+   fig-editor와 같은 문서에서 공존한다. (.deck > section.slide)
+   ================================================================ */
+
+html,body{height:100%;}
+body.deck-doc{overflow:hidden;background:#101319;margin:0;padding:0;}
+
+/* ---------- 무대: .deck 자체가 고정 스테이지 ---------- */
+.deck{position:fixed;inset:0;}
+body.fig-editing .deck{right:278px;}            /* 편집 도크 폭만큼 양보 */
+body.deck-tl-open .deck{bottom:calc(var(--tl-h,206px) + 26px);}  /* 타임라인 높이만큼 양보 */
+
+.slide{position:absolute;left:50%;top:50%;display:none;
+  background:#fff;border-radius:4px;overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.5);
+  transform:translate(-50%,-50%);transform-origin:center center;}
+.slide.active{display:block;}
+
+/* ---------- 장면(step) 요소 ---------- */
+.slide [data-step]{opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .28s ease,transform .28s ease,visibility 0s linear .28s;}
+.slide [data-step].step-on{opacity:1;visibility:visible;transform:none;
+  transition:opacity .28s ease,transform .28s ease;}
+/* 편집 모드에서는 전부 펼쳐 보인다 (opacity에 !important를 쓰지 않아 인라인 지정이 우선) */
+body.fig-editing:not(.deck-step-preview) .slide [data-step]{visibility:visible !important;transform:none !important;}
+body.fig-editing:not(.deck-step-preview) .slide [data-step]{opacity:1;}
+.fx{display:none !important;}                    /* 연출 디렉티브는 렌더되지 않음 */
+
+/* ---------- 카메라 (fig-scale 래퍼에 적용. 저장 시 자동 소거) ---------- */
+.slide .fig-scale{transition:transform .5s cubic-bezier(.2,.72,.2,1);}
+body.fig-editing:not(.deck-step-preview) .slide .fig-scale{transform:none !important;transition:none;}
+
+/* ---------- 포커스 딤 ---------- */
+.deck-dimmed .fig-node:not(.deck-focus){opacity:.13;transition:opacity .35s ease;}
+.deck-dimmed .fig-edges g:not(.deck-focus){opacity:.09;transition:opacity .35s ease;}
+.deck-dimmed .fig-elabel:not(.deck-focus){opacity:.09;transition:opacity .35s ease;}
+.fig-node,.fig-edges g,.fig-elabel{transition:opacity .35s ease;}
+body.fig-editing:not(.deck-step-preview) .deck-dimmed .fig-node,body.fig-editing:not(.deck-step-preview) .deck-dimmed .fig-edges g,
+body.fig-editing:not(.deck-step-preview) .deck-dimmed .fig-elabel{opacity:1 !important;}
+
+/* ---------- 흐름(flow) · 강조(pulse) ---------- */
+.deck-flow-anim .fe-main{stroke-dasharray:7 7 !important;animation:deckFlow 1.05s linear infinite;}
+@keyframes deckFlow{to{stroke-dashoffset:-28;}}
+.deck-pulse{animation:deckPulse .85s ease-out 2;}
+@keyframes deckPulse{0%{box-shadow:0 0 0 0 rgba(37,99,235,.55);}100%{box-shadow:0 0 0 24px rgba(37,99,235,0);}}
+
+/* ---------- HUD ---------- */
+.deck-hud{position:fixed;right:16px;bottom:14px;z-index:9975;display:flex;align-items:center;gap:11px;
+  background:rgba(18,22,30,.88);border:1px solid rgba(255,255,255,.08);border-radius:22px;
+  padding:7px 13px;color:#cfd6e2;backdrop-filter:blur(8px);
+  font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:12.5px;user-select:none;}
+.deck-hud .nav{background:none;border:none;color:#9aa5b5;font-size:15px;cursor:pointer;padding:0 2px;
+  font-family:inherit;line-height:1;}
+.deck-hud .nav:hover{color:#fff;}
+.deck-hud .pg{font-weight:700;letter-spacing:.04em;white-space:nowrap;}
+.deck-hud .dots{display:flex;gap:4px;align-items:center;}
+.deck-hud .dots i{width:5px;height:5px;border-radius:50%;background:#4a5568;display:block;transition:.2s;}
+.deck-hud .dots i.on{background:#60a5fa;transform:scale(1.35);}
+.deck-hud .key{color:#6b7686;font-size:11px;border:1px solid #3a4150;border-radius:5px;padding:0 5px;margin-left:2px;}
+
+/* ---------- 오버뷰 (ESC) ---------- */
+.deck-ov{position:fixed;inset:0;z-index:9985;display:none;background:rgba(10,12,17,.94);
+  padding:7vh 7vw;overflow:auto;font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;}
+.deck-ov.open{display:block;}
+.deck-ov h3{color:#8b95a7;font-size:13px;font-weight:700;letter-spacing:.14em;margin:0 0 18px;}
+.deck-ov .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
+.deck-ov .card{background:#1a1f2a;border:1px solid #2c3342;border-radius:13px;padding:15px 16px;
+  cursor:pointer;text-align:left;font-family:inherit;transition:.15s;}
+.deck-ov .card:hover{border-color:#3b82f6;background:#1e2534;transform:translateY(-2px);}
+.deck-ov .card.cur{border-color:#60a5fa;box-shadow:0 0 0 1px #60a5fa;}
+.deck-ov .card .no{font-size:11px;font-weight:800;color:#5b667a;letter-spacing:.1em;margin-bottom:7px;}
+.deck-ov .card .tt{font-size:14.5px;font-weight:700;color:#e7ebf2;line-height:1.35;}
+.deck-ov .card .st{font-size:11.5px;color:#7c8698;margin-top:6px;}
+
+/* ---------- 발표자 노트 (N) ---------- */
+.deck-notes{position:fixed;left:16px;bottom:14px;z-index:9975;max-width:540px;display:none;
+  background:rgba(18,22,30,.94);border:1px solid rgba(255,255,255,.09);border-radius:13px;
+  padding:13px 17px;color:#dde3ec;font-size:14px;line-height:1.6;
+  font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;backdrop-filter:blur(8px);}
+.deck-notes.open{display:block;}
+.deck-notes .nt{font-size:10.5px;font-weight:800;letter-spacing:.12em;color:#7c8698;margin-bottom:5px;}
+aside.notes{display:none;}                        /* 슬라이드 내 노트 원문은 숨김 */
+
+/* ---------- 슬라이드 진입 프레임: 트랜지션 차단 (잔상 방지) ---------- */
+.deck-no-anim, .deck-no-anim *{transition:none !important;}
+
+
+/* ---------- 장면 타임라인 (편집 모드) ---------- */
+.deck-tl{position:fixed;left:14px;right:306px;bottom:14px;z-index:9978;display:none;flex-direction:column;
+  height:var(--tl-h,206px);max-height:60vh;background:#1f2430;color:#e5e7eb;border-radius:14px;
+  box-shadow:0 14px 40px rgba(10,14,22,.42);
+  font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+.deck-tl.open{display:flex;}
+.tl-resize{height:8px;margin-bottom:-4px;cursor:ns-resize;border-radius:14px 14px 0 0;flex:0 0 auto;position:relative;}
+.tl-resize::after{content:"";position:absolute;left:50%;top:3px;transform:translateX(-50%);
+  width:44px;height:3px;border-radius:2px;background:#3a4254;}
+.tl-resize:hover::after{background:#60a5fa;}
+.tl-head{display:flex;gap:6px;align-items:center;padding:8px 12px;border-bottom:1px solid #2c3342;
+  font-size:12.5px;flex-wrap:wrap;}
+.tl-head b{font-size:12px;letter-spacing:.4px;color:#93c5fd;margin-right:4px;}
+.tl-sep{width:1px;height:16px;background:#333b4c;margin:0 2px;}
+.tl-b{font-family:inherit;font-size:11.5px;font-weight:700;cursor:pointer;border:1px solid #3a4254;
+  background:#2b3140;color:#dfe3ea;padding:4px 9px;border-radius:7px;}
+.tl-b:hover{background:#394153;}
+.tl-hint{color:#6b7686;font-size:11px;margin-left:auto;}
+.tl-cols{display:flex;gap:8px;overflow-x:auto;padding:10px 12px;flex:1;align-items:flex-start;}
+.tl-col{min-width:158px;max-width:200px;flex:0 0 auto;background:#262c3a;border:1px solid #333b4c;
+  border-radius:10px;padding:6px;}
+.tl-col.cur{border-color:#60a5fa;box-shadow:0 0 0 1px #60a5fa;}
+.tl-colhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;}
+.tl-num{font-family:inherit;font-size:11.5px;font-weight:800;color:#cfd6e2;background:#313a4d;
+  border:none;border-radius:6px;padding:3px 9px;cursor:pointer;}
+.tl-num:hover{background:#3c4763;}
+.tl-col.cur .tl-num{background:#2563eb;color:#fff;}
+.tl-ins{font-family:inherit;font-size:12px;color:#7c8698;background:none;border:none;cursor:pointer;padding:2px 5px;}
+.tl-ins:hover{color:#fff;}
+.tl-item{display:flex;align-items:center;gap:5px;background:#2b3140;border-radius:7px;
+  padding:4px 6px;margin-top:5px;font-size:11.5px;border-left:3px solid #4b5563;
+  cursor:grab;user-select:none;-webkit-user-select:none;}
+.tl-item.sel{background:#31456e;box-shadow:inset 0 0 0 1px #60a5fa;}
+.tl-item.dragging{opacity:.35;}
+.tl-col.drop{border-color:#4ade80;box-shadow:0 0 0 1px #4ade80;background:#283548;}
+.tl-ghost{position:fixed;z-index:99999;pointer-events:none;background:#2563eb;color:#fff;
+  font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:8px;
+  box-shadow:0 6px 18px rgba(0,0,0,.4);
+  font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+/* 타임라인 카드 호버 → 캔버스의 대상 하이라이트 */
+.tl-target-hint{outline:2px dashed #a78bfa !important;outline-offset:3px;}
+.fig-edges g.tl-target-hint-e .fe-main{filter:drop-shadow(0 0 3px rgba(167,139,250,.95)) !important;}
+.tl-item.k-appear{border-left-color:#4ade80;}
+.tl-item.k-focus{border-left-color:#60a5fa;}
+.tl-item.k-pulse{border-left-color:#f59e0b;}
+.tl-item.k-flow{border-left-color:#22d3ee;}
+.tl-item.k-view{border-left-color:#a78bfa;}
+.tl-item.k-reset{border-left-color:#94a3b8;}
+.tl-name{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;}
+.tl-name:hover{color:#93c5fd;}
+.tl-zoom{width:46px;background:#1c212c;color:#e5e7eb;border:1px solid #3a4254;border-radius:5px;
+  font-family:inherit;font-size:11px;padding:1px 3px;}
+.tl-acts{display:flex;gap:2px;flex:0 0 auto;}
+.tl-mv,.tl-del{font-family:inherit;font-size:10px;color:#9aa5b5;background:none;border:none;
+  cursor:pointer;padding:2px 3px;border-radius:4px;}
+.tl-mv:hover{color:#fff;background:#3a4254;}
+.tl-del:hover{color:#fca5a5;background:#3a4254;}
+
+/* ---------- 접근성·인쇄 ---------- */
+@media (prefers-reduced-motion:reduce){
+  .slide [data-step],.slide .fig-scale,.deck-dimmed .fig-node,.deck-dimmed .fig-edges g{transition:none !important;}
+  .deck-flow-anim .fe-main{animation:none;}
+  .deck-pulse{animation:none;}
+}
+@media print{
+  body.deck-doc{overflow:visible;background:#fff;}
+  .deck{position:static;}
+  .slide{position:static;display:block !important;transform:none !important;margin:0;box-shadow:none;
+    border:none;border-radius:0;overflow:hidden;page-break-after:always;break-after:page;}
+  .slide:last-of-type{page-break-after:auto;break-after:auto;}
+  /* 모든 장면을 펼친다. 화살표·라벨은 런타임이 인라인 opacity로 숨기므로 여기서 되살리고, 카메라·딤도 푼다 */
+  .slide [data-step]{opacity:1 !important;visibility:visible !important;transform:none !important;}
+  .slide .fig-node,.slide .fig-edges g,.slide .fig-elabel{opacity:1 !important;}
+  .slide .fig-scale{transform:none !important;}
+  .deck-hud,.deck-ov,.deck-notes,.deck-tl,.tl-ghost,.fig-pill,.fig-dock,.fig-toast{display:none !important;}
+}

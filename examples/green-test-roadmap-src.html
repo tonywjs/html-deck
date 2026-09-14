@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>연구데이터 통합 플랫폼 구축 로드맵</title>
+<style>
+/* ================= 덱 디자인 스타일 ================= */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+:root{
+  --blue:#2563eb; --indigo:#4338ca; --cyan:#0891b2; --teal:#0e7490;
+  --ink:#0f172a; --sub:#64748b; --line:#e6eaf0;
+  --red:#dc2626; --red-ink:#991b1b; --red-bg:#fef2f2; --red-line:#fecaca;
+  --font:'Pretendard','Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased;}
+.slide{background:linear-gradient(180deg,#ffffff 0%,#f6f9fd 100%);}
+.fig-elabel{font-size:14px;}                 /* 덱 라벨 하한 14px 오버라이드 */
+
+/* ---- 공통 ---- */
+.kick{font-size:15px;font-weight:800;letter-spacing:.2em;color:var(--blue);}
+.s-title{font-size:32px;font-weight:800;letter-spacing:-.02em;}
+.s-title .g{background:linear-gradient(90deg,var(--blue),var(--indigo));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 18px rgba(20,30,60,.08);}
+svg.ico{width:22px;height:22px;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ---- 1: 타이틀 ---- */
+.t-big{font-size:54px;font-weight:800;letter-spacing:-.025em;line-height:1.24;}
+.t-sub{font-size:20px;color:var(--sub);line-height:1.6;}
+.t-meta{font-size:15px;color:#94a3b8;font-weight:600;}
+.t-band{width:100%;height:100%;border-radius:20px;
+  background:radial-gradient(640px 340px at 78% 28%,#e7efff 0%,rgba(231,239,255,0) 65%),
+             linear-gradient(135deg,#f2f6fd 0%,#ffffff 60%);
+  border:1px solid #e8edf5;}
+
+/* ---- 2: 현황과 문제점 ---- */
+.silo{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:16px 16px;}
+.silo .ic{width:38px;height:38px;border-radius:10px;background:#eef4ff;display:flex;align-items:center;justify-content:center;}
+.silo .ic svg{stroke:var(--blue);}
+.silo .nm{font-size:17px;font-weight:700;line-height:1.25;}
+.silo .fmt{font-size:14px;color:#94a3b8;}
+.isobadge{background:var(--red-bg);border:1px solid var(--red-line);color:var(--red-ink);
+  font-size:14px;font-weight:700;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:4px;}
+.isobadge svg{width:12px;height:12px;stroke:var(--red-ink);stroke-width:2.4;}
+
+.probcard{padding:22px 26px;}
+.probcard .ph{font-size:20px;font-weight:800;margin-bottom:16px;color:var(--ink);}
+.probrow{display:flex;gap:22px;}
+.probitem{flex:1;display:flex;gap:12px;align-items:flex-start;}
+.probitem .pi{width:38px;height:38px;border-radius:10px;background:#fff1f0;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.probitem .pi svg{stroke:var(--red);}
+.probitem .pt{font-size:18px;font-weight:700;line-height:1.3;}
+.probitem .pd{font-size:16px;color:var(--sub);line-height:1.45;margin-top:4px;}
+
+.statbar{padding:20px 28px;display:flex;flex-direction:column;justify-content:center;
+  background:linear-gradient(90deg,#fff7ed,#fff);border:1px solid #fcd9a8;}
+.statbar .big{font-size:22px;font-weight:800;color:#9a3412;line-height:1.4;}
+.statbar .big b{color:#c2410c;font-size:24px;}
+.statbar .src{font-size:14px;color:#94a3b8;margin-top:6px;}
+
+/* ---- 3: 3단계 로드맵 ---- */
+.stage{padding:26px 24px;display:flex;flex-direction:column;height:100%;}
+.stage .ring{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:24px;font-weight:800;color:#fff;margin-bottom:16px;}
+.stage.st1 .ring{background:var(--blue);} .stage.st2 .ring{background:var(--indigo);} .stage.st3 .ring{background:var(--teal);}
+.stage .stp{font-size:14px;font-weight:700;color:var(--sub);letter-spacing:.02em;margin-bottom:6px;}
+.stage .stt{font-size:22px;font-weight:800;line-height:1.3;margin-bottom:16px;}
+.stage ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.stage li{font-size:16px;line-height:1.45;color:var(--sub);padding-left:16px;position:relative;}
+.stage li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--line);}
+.stage.st1 li::before{background:var(--blue);} .stage.st2 li::before{background:var(--indigo);} .stage.st3 li::before{background:var(--teal);}
+.roadcap{font-size:16px;color:var(--sub);font-weight:600;}
+.roadcap b{color:var(--ink);}
+
+/* ---- 4: 목표 아키텍처 ---- */
+.srcnode{display:flex;align-items:center;gap:10px;padding:0 14px;}
+.srcnode .ic{width:36px;height:36px;border-radius:10px;background:#eef4ff;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.srcnode .ic svg{stroke:var(--blue);width:20px;height:20px;}
+.srcnode .nm{font-size:16px;font-weight:700;line-height:1.25;}
+
+.hubcard{padding:22px 26px;display:flex;flex-direction:column;align-items:center;text-align:center;height:100%;justify-content:center;
+  background:radial-gradient(420px 220px at 50% 0%,#eaf1ff 0%,rgba(234,241,255,0) 70%),#fff;}
+.hubcard .hicon{width:46px;height:46px;border-radius:12px;background:var(--blue);display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.hubcard .hicon svg{width:26px;height:26px;stroke:#fff;}
+.hubcard .htt{font-size:24px;font-weight:800;color:var(--ink);}
+.hubcard .htag{font-size:15px;color:var(--sub);margin-top:4px;}
+.hubcard .hdetail{margin-top:14px;text-align:left;list-style:none;display:flex;flex-direction:column;gap:7px;width:100%;}
+.hubcard .hdetail li{font-size:16px;line-height:1.4;color:#334155;padding-left:20px;position:relative;}
+.hubcard .hdetail li::before{content:"";position:absolute;left:2px;top:7px;width:7px;height:7px;border-radius:2px;background:var(--blue);}
+
+.consnode{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:14px;text-align:center;}
+.consnode .ic{width:38px;height:38px;border-radius:10px;background:#e6f6fb;display:flex;align-items:center;justify-content:center;}
+.consnode .ic svg{stroke:var(--cyan);width:21px;height:21px;}
+.consnode .nm{font-size:16px;font-weight:700;}
+
+/* ---- 5: 기대효과와 다음 단계 ---- */
+.bcard{padding:24px 26px;height:100%;position:relative;overflow:hidden;}
+.bcard::before{content:"";position:absolute;left:0;top:0;width:100%;height:5px;}
+.bcard.b1::before{background:var(--blue);} .bcard.b2::before{background:var(--indigo);} .bcard.b3::before{background:var(--cyan);}
+.bcard .bn{font-size:34px;font-weight:800;line-height:1;margin:4px 0 14px;}
+.bcard.b1 .bn{color:var(--blue);} .bcard.b2 .bn{color:var(--indigo);} .bcard.b3 .bn{color:var(--cyan);}
+.bcard .bt{font-size:19px;font-weight:800;line-height:1.35;margin-bottom:10px;}
+.bcard .bd{font-size:16px;color:var(--sub);line-height:1.55;}
+
+.closebanner{padding:26px 32px;display:flex;flex-direction:column;justify-content:center;gap:12px;
+  background:#eef4ff;border:1px solid #c9dcff;}
+.closebanner .cl1{font-size:21px;font-weight:800;color:#1e3a8a;line-height:1.5;}
+.closebanner .cl1 b{color:var(--blue);}
+.closebanner .cl2{font-size:16px;color:#3b4a6b;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.closebanner .chip{background:#fff;border:1px solid #c9dcff;border-radius:999px;padding:5px 14px;font-weight:700;color:#1e3a8a;font-size:14px;}
+</style>
+<style id="fig-editor-css">
+/*__FIG_EDITOR_CSS__*/
+</style>
+<style id="deck-runtime-css">
+/*__DECK_CSS__*/
+</style>
+</head>
+<body>
+
+<div class="deck" data-slide-size="1280x720">
+
+  <!-- ============ 1. 타이틀 ============ -->
+  <section class="slide" data-title="타이틀">
+    <div class="fig-canvas" data-size="1280x720">
+      <div class="fig-node" id="s1-band" style="left:60px;top:56px;width:1160px;height:608px;background:transparent;border:none;padding:0">
+        <div class="t-band"></div>
+      </div>
+      <div class="fig-node kick" id="s1-kick" style="left:140px;top:196px;width:800px;background:transparent;border:none">한빛과학기술원 정보전략실 · 내부보고</div>
+      <div class="fig-node t-big" id="s1-title" style="left:140px;top:236px;width:920px;background:transparent;border:none">
+        연구데이터 통합 플랫폼<br>구축 <span style="color:#2563eb">로드맵</span>
+      </div>
+      <div class="fig-node t-sub" id="s1-sub" style="left:140px;top:418px;width:800px;background:transparent;border:none">
+        부서마다 흩어진 데이터를 하나의 플랫폼으로 모아,<br>연구자가 원하는 데이터를 즉시 찾고 신뢰할 수 있게 만듭니다.
+      </div>
+      <div class="fig-node t-meta" id="s1-meta" style="left:140px;top:560px;width:700px;background:transparent;border:none">
+        정보전략실 · 2026. 7. · 사업 추진 보고
+      </div>
+    </div>
+    <aside class="notes">인사 후 오늘 보고의 결론을 먼저 제시: "흩어진 데이터를 하나의 플랫폼으로 모아 검색·재사용 문제를 해결한다". 이 슬라이드는 장면 없이 통으로 제시.</aside>
+  </section>
+
+  <!-- ============ 2. 현황과 문제점 ============ -->
+  <section class="slide" data-title="현황과 문제점">
+    <div class="fig-canvas" data-size="1280x720">
+      <div class="fig-node s-title" id="s2-title" style="left:64px;top:44px;width:1100px;background:transparent;border:none">
+        현황과 문제점. <span class="g">흩어진 데이터, 흩어진 기회</span>
+      </div>
+
+      <div class="fig-node silo panel" id="s2-si1" style="left:75px;top:150px;width:210px;height:118px" data-step="1">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V2h6v2"/><path d="M9 10h6M9 14h6"/></svg></span>
+        <div class="nm">임상연구DB</div><div class="fmt">형식: 전용 RDB</div>
+      </div>
+      <div class="fig-node silo panel" id="s2-si2" style="left:305px;top:150px;width:210px;height:118px" data-step="1">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><path d="M8 7h.01M8 17h.01"/></svg></span>
+        <div class="nm">유전체 파일서버</div><div class="fmt">형식: FASTQ/VCF</div>
+      </div>
+      <div class="fig-node silo panel" id="s2-si3" style="left:535px;top:150px;width:210px;height:118px" data-step="1">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-4 4-3-3-5 5"/></svg></span>
+        <div class="nm">영상저장소(PACS)</div><div class="fmt">형식: DICOM</div>
+      </div>
+      <div class="fig-node silo panel" id="s2-si4" style="left:765px;top:150px;width:210px;height:118px" data-step="1">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M4 15h16M10 4v16M15 4v16"/></svg></span>
+        <div class="nm">실험노트(엑셀)</div><div class="fmt">형식: 개인 파일</div>
+      </div>
+      <div class="fig-node silo panel" id="s2-si5" style="left:995px;top:150px;width:210px;height:118px" data-step="1">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 5.5v15"/></svg></span>
+        <div class="nm">문헌관리시스템</div><div class="fmt">형식: 벤더 종속</div>
+      </div>
+
+      <div class="fig-node isobadge" id="s2-b1" style="left:189px;top:140px;width:88px;height:24px" data-step="2">✕ 미연동</div>
+      <div class="fig-node isobadge" id="s2-b2" style="left:419px;top:140px;width:88px;height:24px" data-step="2">✕ 미연동</div>
+      <div class="fig-node isobadge" id="s2-b3" style="left:649px;top:140px;width:88px;height:24px" data-step="2">✕ 미연동</div>
+      <div class="fig-node isobadge" id="s2-b4" style="left:879px;top:140px;width:88px;height:24px" data-step="2">✕ 미연동</div>
+      <div class="fig-node isobadge" id="s2-b5" style="left:1109px;top:140px;width:88px;height:24px" data-step="2">✕ 미연동</div>
+
+      <div class="fig-node probcard panel" id="s2-prob" style="left:64px;top:300px;width:1152px;height:214px" data-step="2">
+        <div class="ph">5개 시스템이 서로 연동되지 않아, 세 가지 문제가 발생합니다</div>
+        <div class="probrow">
+          <div class="probitem">
+            <span class="pi"><svg class="ico" viewBox="0 0 24 24"><rect x="5" y="7" width="12" height="14" rx="2"/><rect x="9" y="3" width="12" height="14" rx="2"/></svg></span>
+            <div><div class="pt">중복 저장·입력</div><div class="pd">동일한 데이터를 부서마다 다시 입력합니다</div></div>
+          </div>
+          <div class="probitem">
+            <span class="pi"><svg class="ico" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l5 5"/></svg></span>
+            <div><div class="pt">검색 불가능</div><div class="pd">필요한 데이터가 어디 있는지 알 방법이 없습니다</div></div>
+          </div>
+          <div class="probitem">
+            <span class="pi"><svg class="ico" viewBox="0 0 24 24"><path d="M4 12h4M10 12h4M16 12h4"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="18" r="2"/></svg></span>
+            <div><div class="pt">표준 불일치</div><div class="pd">형식·코드체계가 제각각이라 결합이 불가능합니다</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fig-node statbar panel" id="s2-stat" style="left:64px;top:546px;width:1152px;height:118px" data-step="3">
+        <div class="big">연간 중복 입력 약 <b>3,200건</b> · 자료 탐색에 평균 <b>2.4시간</b> 소요</div>
+        <div class="src">데이터전략팀 자체 실태조사(2026.6, 5개 시스템 이용부서 대상)</div>
+      </div>
+
+      <i class="fx" data-step="3" data-fx="pulse" data-target="#s2-stat"></i>
+    </div>
+    <aside class="notes">장면 1: 부서별로 데이터를 각자 보관 중인 5개 시스템을 보여준다. 장면 2: 이들이 서로 연동되지 않아 생기는 3가지 문제(중복입력·검색불가·표준불일치)를 설명. 장면 3: 실태조사 수치로 문제의 규모를 체감시키고 잠시 멈춘다.</aside>
+  </section>
+
+  <!-- ============ 3. 3단계 로드맵 ============ -->
+  <section class="slide" data-title="3단계 로드맵">
+    <div class="fig-canvas" data-size="1280x720">
+      <div class="fig-node s-title" id="s3-title" style="left:64px;top:44px;width:1100px;background:transparent;border:none">
+        구축 로드맵. <span class="g">3단계로 완성</span>
+      </div>
+
+      <div class="fig-node" id="s3-c1" style="left:64px;top:140px;width:368px;height:450px;background:transparent;border:none;padding:0" data-step="1">
+        <div class="stage panel st1">
+          <div class="ring">1</div>
+          <div class="stp">2026. 7 ~ 2026. 12</div>
+          <div class="stt">데이터 인벤토리 · 표준화</div>
+          <ul>
+            <li>전 부서 보유 데이터 전수 조사</li>
+            <li>공통 메타데이터 표준 확정</li>
+            <li>시범 부서 2곳 카탈로그 구축</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fig-node" id="s3-c2" style="left:456px;top:140px;width:368px;height:450px;background:transparent;border:none;padding:0" data-step="2">
+        <div class="stage panel st2">
+          <div class="ring">2</div>
+          <div class="stp">2027. 1 ~ 2027. 6</div>
+          <div class="stt">통합 스토리지 · 메타데이터 허브</div>
+          <ul>
+            <li>전 시스템 데이터 이관·통합</li>
+            <li>통합 데이터 허브 구축</li>
+            <li>접근제어·계보 추적 체계 적용</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fig-node" id="s3-c3" style="left:848px;top:140px;width:368px;height:450px;background:transparent;border:none;padding:0" data-step="3">
+        <div class="stage panel st3">
+          <div class="ring">3</div>
+          <div class="stp">2027. 7 ~ 2027. 12</div>
+          <div class="stt">API 개방 · 거버넌스 가동</div>
+          <ul>
+            <li>연구자 포털·API 정식 오픈</li>
+            <li>운영 거버넌스 위원회 발족</li>
+            <li>외부 협력기관 연계 개시</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="fig-node roadcap" id="s3-cap" style="left:64px;top:620px;width:1152px;background:transparent;border:none">
+        총 소요기간 <b>18개월</b> (2026. 7 ~ 2027. 12). 단계마다 이관 부서를 넓혀가는 점진 전환 방식
+      </div>
+
+      <div class="fig-edge" id="e3-12" data-from="s3-c1" data-to="s3-c2" data-color="#4338ca" data-width="2.6" data-arrow="end" data-step="2"></div>
+      <div class="fig-edge" id="e3-23" data-from="s3-c2" data-to="s3-c3" data-color="#0e7490" data-width="2.6" data-arrow="end" data-step="3"></div>
+
+      <i class="fx" data-step="2" data-fx="flow" data-target="#e3-12"></i>
+      <i class="fx" data-step="3" data-fx="flow" data-target="#e3-23"></i>
+    </div>
+    <aside class="notes">장면 1: 1단계(인벤토리·표준화)부터 시작. 조사와 표준 없이는 통합이 불가능함을 강조. 장면 2: 화살표가 흐르며 2단계(통합 허브 구축)로 이어짐을 보여준다. 장면 3: 3단계(API·거버넌스)까지 이어지는 전체 그림을 완성한다.</aside>
+  </section>
+
+  <!-- ============ 4. 목표 아키텍처 ============ -->
+  <section class="slide" data-title="목표 아키텍처">
+    <div class="fig-canvas" data-size="1280x720">
+      <div class="fig-node s-title" id="s4-title" style="left:64px;top:44px;width:1100px;background:transparent;border:none">
+        목표 아키텍처. <span class="g">통합 플랫폼 구조</span>
+      </div>
+
+      <div class="fig-node srcnode panel" id="s4-src1" style="left:64px;top:140px;width:220px;height:100px" data-step="1">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V2h6v2"/><path d="M9 10h6M9 14h6"/></svg></span>
+        <div class="nm">임상 데이터</div>
+      </div>
+      <div class="fig-node srcnode panel" id="s4-src2" style="left:374px;top:140px;width:220px;height:100px" data-step="1">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><path d="M8 7h.01M8 17h.01"/></svg></span>
+        <div class="nm">유전체 데이터</div>
+      </div>
+      <div class="fig-node srcnode panel" id="s4-src3" style="left:684px;top:140px;width:220px;height:100px" data-step="1">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-4 4-3-3-5 5"/></svg></span>
+        <div class="nm">영상 데이터</div>
+      </div>
+      <div class="fig-node srcnode panel" id="s4-src4" style="left:994px;top:140px;width:220px;height:100px" data-step="1">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 5.5v15"/></svg></span>
+        <div class="nm">문헌 데이터</div>
+      </div>
+
+      <div class="fig-node" id="s4-hub" style="left:480px;top:290px;width:320px;height:190px;background:transparent;border:none;padding:0" data-step="1">
+        <div class="hubcard panel">
+          <span class="hicon"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></span>
+          <div class="htt">통합 데이터 허브</div>
+          <div class="htag">모든 데이터가 모이는 단일 관문</div>
+          <ul class="hdetail" data-step="2">
+            <li>메타데이터 카탈로그</li>
+            <li>접근제어(RBAC)</li>
+            <li>데이터 계보(lineage) 추적</li>
+            <li>API 게이트웨이</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="fig-node consnode panel" id="s4-c1" style="left:64px;top:540px;width:250px;height:110px" data-step="3">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5.6 20a6.4 6.4 0 0 1 12.8 0"/></svg></span>
+        <div class="nm">연구자 포털</div>
+      </div>
+      <div class="fig-node consnode panel" id="s4-c2" style="left:515px;top:540px;width:250px;height:110px" data-step="3">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg></span>
+        <div class="nm">AI 분석엔진</div>
+      </div>
+      <div class="fig-node consnode panel" id="s4-c3" style="left:966px;top:540px;width:250px;height:110px" data-step="3">
+        <span class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M9 3v4M15 3v4M7 7h10l-1 5a4 4 0 0 1-8 0z"/><path d="M12 16v5"/></svg></span>
+        <div class="nm">외부기관 API</div>
+      </div>
+
+      <div class="fig-edge" id="e4-s1" data-from="s4-src1" data-to="s4-hub" data-color="#2563eb" data-width="2.2" data-arrow="end" data-curve="-0.22" data-step="1"></div>
+      <div class="fig-edge" id="e4-s2" data-from="s4-src2" data-to="s4-hub" data-color="#2563eb" data-width="2.2" data-arrow="end" data-curve="-0.08" data-label="수집" data-step="1"></div>
+      <div class="fig-edge" id="e4-s3" data-from="s4-src3" data-to="s4-hub" data-color="#2563eb" data-width="2.2" data-arrow="end" data-curve="0.08" data-step="1"></div>
+      <div class="fig-edge" id="e4-s4" data-from="s4-src4" data-to="s4-hub" data-color="#2563eb" data-width="2.2" data-arrow="end" data-curve="0.22" data-step="1"></div>
+
+      <div class="fig-edge" id="e4-c1" data-from="s4-hub" data-to="s4-c1" data-color="#0e7490" data-width="2.2" data-arrow="end" data-curve="-0.18" data-step="3"></div>
+      <div class="fig-edge" id="e4-c2" data-from="s4-hub" data-to="s4-c2" data-color="#0e7490" data-width="2.2" data-arrow="end" data-label="제공" data-step="3"></div>
+      <div class="fig-edge" id="e4-c3" data-from="s4-hub" data-to="s4-c3" data-color="#0e7490" data-width="2.2" data-arrow="end" data-curve="0.18" data-step="3"></div>
+
+      <i class="fx" data-step="1" data-fx="flow" data-target="#e4-s1"></i>
+      <i class="fx" data-step="1" data-fx="flow" data-target="#e4-s2"></i>
+      <i class="fx" data-step="1" data-fx="flow" data-target="#e4-s3"></i>
+      <i class="fx" data-step="1" data-fx="flow" data-target="#e4-s4"></i>
+      <i class="fx" data-step="2" data-fx="focus" data-target="#s4-hub" data-zoom="1.85"></i>
+      <i class="fx" data-step="3" data-fx="reset"></i>
+      <i class="fx" data-step="3" data-fx="flow" data-target="#e4-c1"></i>
+      <i class="fx" data-step="3" data-fx="flow" data-target="#e4-c2"></i>
+      <i class="fx" data-step="3" data-fx="flow" data-target="#e4-c3"></i>
+    </div>
+    <aside class="notes">장면 1: 4개 원천 데이터가 통합 데이터 허브로 모이는 흐름을 보여준다. 장면 2: 허브로 카메라를 줌인해 내부 4개 핵심 기능(카탈로그·접근제어·계보추적·API 게이트웨이)을 설명한다. 장면 3: 카메라를 되돌리고, 허브에서 연구자 포털·AI 분석엔진·외부기관 API로 다시 제공되는 흐름을 보여주며 전체 그림을 완성한다.</aside>
+  </section>
+
+  <!-- ============ 5. 기대효과와 다음 단계 ============ -->
+  <section class="slide" data-title="기대효과와 다음 단계">
+    <div class="fig-canvas" data-size="1280x720">
+      <div class="fig-node s-title" id="s5-title" style="left:64px;top:44px;width:1100px;background:transparent;border:none">
+        기대효과와 다음 단계
+      </div>
+
+      <div class="fig-node" id="s5-b1" style="left:64px;top:140px;width:368px;height:320px;background:transparent;border:none;padding:0" data-step="1">
+        <div class="bcard panel b1">
+          <div class="bn">90%↓</div>
+          <div class="bt">데이터 탐색 시간 단축</div>
+          <div class="bd">부서 간 데이터 위치를 몰라 헤매던 평균 2.4시간이, 카탈로그 검색 한 번으로 줄어듭니다.</div>
+        </div>
+      </div>
+      <div class="fig-node" id="s5-b2" style="left:456px;top:140px;width:368px;height:320px;background:transparent;border:none;padding:0" data-step="2">
+        <div class="bcard panel b2">
+          <div class="bn">0건</div>
+          <div class="bt">중복 입력 제로화</div>
+          <div class="bd">한 번 등록된 데이터는 표준 형식으로 전사에서 재사용되어, 연간 3,200건의 재입력이 사라집니다.</div>
+        </div>
+      </div>
+      <div class="fig-node" id="s5-b3" style="left:848px;top:140px;width:368px;height:320px;background:transparent;border:none;padding:0" data-step="3">
+        <div class="bcard panel b3">
+          <div class="bn">1개</div>
+          <div class="bt">협업 연구 촉진</div>
+          <div class="bd">표준화된 단일 플랫폼 위에서 부서·기관 간 공동연구 데이터 결합이 즉시 가능해집니다.</div>
+        </div>
+      </div>
+
+      <div class="fig-node" id="s5-close" style="left:64px;top:500px;width:1152px;height:180px;background:transparent;border:none;padding:0" data-step="4">
+        <div class="closebanner panel">
+          <div class="cl1">지금 승인해 주시면, <b>2027년 하반기 전사 플랫폼 오픈</b>이 가능합니다.</div>
+          <div class="cl2">다음 단계:
+            <span class="chip">8월 예산 승인</span>
+            <span class="chip">9월 추진 TF 구성</span>
+            <span class="chip">10월 1단계 착수</span>
+          </div>
+        </div>
+      </div>
+
+      <i class="fx" data-step="4" data-fx="pulse" data-target="#s5-close"></i>
+    </div>
+    <aside class="notes">효과 카드를 하나씩 공개. 탐색시간·중복입력·협업 순으로, 슬라이드2에서 제기한 문제와 1:1로 대응시켜 설명한다. 마지막 장면에서 다음 단계 배너를 강조하고 승인을 요청한 뒤 질의응답으로 전환.</aside>
+  </section>
+
+</div>
+
+<script>
+/*__FIG_EDITOR_JS__*/
+</script>
+<script>
+/*__DECK_JS__*/
+</script>
+</body>
+</html>

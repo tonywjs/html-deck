@@ -1,0 +1,5 @@
+.DS_Store
+Icon?
+*.log
+__pycache__/
+compare/__pycache__/

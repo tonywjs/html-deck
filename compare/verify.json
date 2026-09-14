@@ -1,0 +1,603 @@
+{
+ "gpt56-luna": {
+  "info": {
+   "slides": 6,
+   "title": "장면으로 읽는 html-deck 편집기",
+   "fig": true
+  },
+  "quality": [
+   {
+    "slide": 1,
+    "minFont": 14,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 2,
+    "minFont": 14,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 3,
+    "minFont": 14,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 4,
+    "minFont": 14,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 5,
+    "minFont": 14,
+    "fill": 83,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 6,
+    "minFont": 14.5,
+    "fill": 90,
+    "offenders": [],
+    "pass": true
+   }
+  ],
+  "walk": {
+   "steps": 22,
+   "cur": 5,
+   "step": 2,
+   "count": 6,
+   "maxLast": 2
+  },
+  "reachEnd": true,
+  "back": {
+   "cur": 0,
+   "step": 0
+  },
+  "backOk": true,
+  "shots": [
+   "./artifacts/gpt56-luna-0.png",
+   "./artifacts/gpt56-luna-1.png",
+   "./artifacts/gpt56-luna-2.png",
+   "./artifacts/gpt56-luna-3.png",
+   "./artifacts/gpt56-luna-4.png",
+   "./artifacts/gpt56-luna-5.png"
+  ],
+  "shots_local": [
+   "shots/gpt56-luna-0.png",
+   "shots/gpt56-luna-1.png",
+   "shots/gpt56-luna-2.png",
+   "shots/gpt56-luna-3.png",
+   "shots/gpt56-luna-4.png",
+   "shots/gpt56-luna-5.png"
+  ]
+ },
+ "gpt56-terra": {
+  "info": {
+   "slides": 6,
+   "title": "html-deck 편집기와 장면 기능",
+   "fig": true
+  },
+  "quality": [
+   {
+    "slide": 1,
+    "minFont": 15,
+    "fill": 83,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 2,
+    "minFont": 15,
+    "fill": 83,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 3,
+    "minFont": 15,
+    "fill": 83,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 4,
+    "minFont": 15,
+    "fill": 83,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 5,
+    "minFont": 15.1,
+    "fill": 85,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 6,
+    "minFont": 16,
+    "fill": 83,
+    "offenders": [],
+    "pass": true
+   }
+  ],
+  "walk": {
+   "steps": 22,
+   "cur": 5,
+   "step": 2,
+   "count": 6,
+   "maxLast": 2
+  },
+  "reachEnd": true,
+  "back": {
+   "cur": 0,
+   "step": 0
+  },
+  "backOk": true,
+  "shots": [
+   "./artifacts/gpt56-terra-0.png",
+   "./artifacts/gpt56-terra-1.png",
+   "./artifacts/gpt56-terra-2.png",
+   "./artifacts/gpt56-terra-3.png",
+   "./artifacts/gpt56-terra-4.png",
+   "./artifacts/gpt56-terra-5.png"
+  ],
+  "shots_local": [
+   "shots/gpt56-terra-0.png",
+   "shots/gpt56-terra-1.png",
+   "shots/gpt56-terra-2.png",
+   "shots/gpt56-terra-3.png",
+   "shots/gpt56-terra-4.png",
+   "shots/gpt56-terra-5.png"
+  ]
+ },
+ "gpt56-sol": {
+  "info": {
+   "slides": 6,
+   "title": "장면으로 가르치는 html-deck 편집기",
+   "fig": true
+  },
+  "quality": [
+   {
+    "slide": 1,
+    "minFont": 14,
+    "fill": 73,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 2,
+    "minFont": 14,
+    "fill": 79,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 3,
+    "minFont": 14,
+    "fill": 79,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 4,
+    "minFont": 14,
+    "fill": 78,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 5,
+    "minFont": 14.5,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 6,
+    "minFont": 14,
+    "fill": 78,
+    "offenders": [],
+    "pass": true
+   }
+  ],
+  "walk": {
+   "steps": 22,
+   "cur": 5,
+   "step": 3,
+   "count": 6,
+   "maxLast": 3
+  },
+  "reachEnd": true,
+  "back": {
+   "cur": 0,
+   "step": 0
+  },
+  "backOk": true,
+  "shots": [
+   "./artifacts/gpt56-sol-0.png",
+   "./artifacts/gpt56-sol-1.png",
+   "./artifacts/gpt56-sol-2.png",
+   "./artifacts/gpt56-sol-3.png",
+   "./artifacts/gpt56-sol-4.png",
+   "./artifacts/gpt56-sol-5.png"
+  ],
+  "shots_local": [
+   "shots/gpt56-sol-0.png",
+   "shots/gpt56-sol-1.png",
+   "shots/gpt56-sol-2.png",
+   "shots/gpt56-sol-3.png",
+   "shots/gpt56-sol-4.png",
+   "shots/gpt56-sol-5.png"
+  ]
+ },
+ "gpt56-astra": {
+  "info": {
+   "slides": 7,
+   "title": "장면으로 가르치는 html-deck: 편집기와 연출 실습",
+   "fig": true
+  },
+  "quality": [
+   {
+    "slide": 1,
+    "minFont": 14,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 2,
+    "minFont": 14,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 3,
+    "minFont": 14,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 4,
+    "minFont": 14,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 5,
+    "minFont": 15.1,
+    "fill": 83,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 6,
+    "minFont": 14,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 7,
+    "minFont": 14,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   }
+  ],
+  "walk": {
+   "steps": 27,
+   "cur": 6,
+   "step": 3,
+   "count": 7,
+   "maxLast": 3
+  },
+  "reachEnd": true,
+  "back": {
+   "cur": 0,
+   "step": 0
+  },
+  "backOk": true,
+  "shots": [
+   "./artifacts/gpt56-astra-0.png",
+   "./artifacts/gpt56-astra-1.png",
+   "./artifacts/gpt56-astra-2.png",
+   "./artifacts/gpt56-astra-3.png",
+   "./artifacts/gpt56-astra-4.png",
+   "./artifacts/gpt56-astra-5.png",
+   "./artifacts/gpt56-astra-6.png"
+  ],
+  "shots_local": [
+   "shots/gpt56-astra-0.png",
+   "shots/gpt56-astra-1.png",
+   "shots/gpt56-astra-2.png",
+   "shots/gpt56-astra-3.png",
+   "shots/gpt56-astra-4.png",
+   "shots/gpt56-astra-5.png",
+   "shots/gpt56-astra-6.png"
+  ]
+ },
+ "opus5": {
+  "info": {
+   "slides": 6,
+   "title": "html-deck 장면 연출 가이드",
+   "fig": true
+  },
+  "quality": [
+   {
+    "slide": 1,
+    "minFont": 15,
+    "fill": 79,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 2,
+    "minFont": 14,
+    "fill": 76,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 3,
+    "minFont": 15,
+    "fill": 74,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 4,
+    "minFont": 14,
+    "fill": 78,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 5,
+    "minFont": 14,
+    "fill": 76,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 6,
+    "minFont": 15.1,
+    "fill": 76,
+    "offenders": [],
+    "pass": true
+   }
+  ],
+  "walk": {
+   "steps": 24,
+   "cur": 5,
+   "step": 2,
+   "count": 6,
+   "maxLast": 2
+  },
+  "reachEnd": true,
+  "back": {
+   "cur": 0,
+   "step": 0
+  },
+  "backOk": true,
+  "shots": [
+   "./artifacts/opus5-0.png",
+   "./artifacts/opus5-1.png",
+   "./artifacts/opus5-2.png",
+   "./artifacts/opus5-3.png",
+   "./artifacts/opus5-4.png",
+   "./artifacts/opus5-5.png"
+  ],
+  "shots_local": [
+   "shots/opus5-0.png",
+   "shots/opus5-1.png",
+   "shots/opus5-2.png",
+   "shots/opus5-3.png",
+   "shots/opus5-4.png",
+   "shots/opus5-5.png"
+  ]
+ },
+ "sonnet5": {
+  "info": {
+   "slides": 7,
+   "title": "html-deck 편집기 가이드. 장면으로 설명하는 발표자료",
+   "fig": true
+  },
+  "quality": [
+   {
+    "slide": 1,
+    "minFont": 15,
+    "fill": 77,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 2,
+    "minFont": 15,
+    "fill": 78,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 3,
+    "minFont": 16,
+    "fill": 77,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 4,
+    "minFont": 15,
+    "fill": 75,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 5,
+    "minFont": 18,
+    "fill": 74,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 6,
+    "minFont": 14.5,
+    "fill": 84,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 7,
+    "minFont": 11,
+    "fill": 77,
+    "offenders": [
+     "11px: 칩을 끌어 순서를 바꿉니다.",
+     "11px: 번호 클릭",
+     "11px: 으로 그 장면을 바로 봅니다.",
+     "11px: 칩 사이"
+    ],
+    "pass": false
+   }
+  ],
+  "walk": {
+   "steps": 27,
+   "cur": 6,
+   "step": 3,
+   "count": 7,
+   "maxLast": 3
+  },
+  "reachEnd": true,
+  "back": {
+   "cur": 0,
+   "step": 0
+  },
+  "backOk": true,
+  "shots": [
+   "./artifacts/sonnet5-0.png",
+   "./artifacts/sonnet5-1.png",
+   "./artifacts/sonnet5-2.png",
+   "./artifacts/sonnet5-3.png",
+   "./artifacts/sonnet5-4.png",
+   "./artifacts/sonnet5-5.png",
+   "./artifacts/sonnet5-6.png"
+  ],
+  "shots_local": [
+   "shots/sonnet5-0.png",
+   "shots/sonnet5-1.png",
+   "shots/sonnet5-2.png",
+   "shots/sonnet5-3.png",
+   "shots/sonnet5-4.png",
+   "shots/sonnet5-5.png",
+   "shots/sonnet5-6.png"
+  ]
+ },
+ "fable51": {
+  "info": {
+   "slides": 8,
+   "title": "장면으로 말하는 발표자료. html-deck 편집기와 장면 기능",
+   "fig": true
+  },
+  "quality": [
+   {
+    "slide": 1,
+    "minFont": 14,
+    "fill": 63,
+    "offenders": [],
+    "pass": false
+   },
+   {
+    "slide": 2,
+    "minFont": 14,
+    "fill": 81,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 3,
+    "minFont": 14,
+    "fill": 81,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 4,
+    "minFont": 14,
+    "fill": 81,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 5,
+    "minFont": 15.1,
+    "fill": 82,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 6,
+    "minFont": 14,
+    "fill": 81,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 7,
+    "minFont": 14,
+    "fill": 81,
+    "offenders": [],
+    "pass": true
+   },
+   {
+    "slide": 8,
+    "minFont": 14,
+    "fill": 81,
+    "offenders": [],
+    "pass": true
+   }
+  ],
+  "walk": {
+   "steps": 27,
+   "cur": 7,
+   "step": 2,
+   "count": 8,
+   "maxLast": 2
+  },
+  "reachEnd": true,
+  "back": {
+   "cur": 0,
+   "step": 0
+  },
+  "backOk": true,
+  "shots": [
+   "./artifacts/fable51-0.png",
+   "./artifacts/fable51-1.png",
+   "./artifacts/fable51-2.png",
+   "./artifacts/fable51-3.png",
+   "./artifacts/fable51-4.png",
+   "./artifacts/fable51-5.png",
+   "./artifacts/fable51-6.png",
+   "./artifacts/fable51-7.png"
+  ],
+  "shots_local": [
+   "shots/fable51-0.png",
+   "shots/fable51-1.png",
+   "shots/fable51-2.png",
+   "shots/fable51-3.png",
+   "shots/fable51-4.png",
+   "shots/fable51-5.png",
+   "shots/fable51-6.png",
+   "shots/fable51-7.png"
+  ]
+ }
+}

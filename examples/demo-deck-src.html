@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>연합학습 소개. K-MELLODDY</title>
+<style>
+/* ================= 덱 디자인 스타일 ================= */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+:root{
+  --blue:#2563eb; --indigo:#4f46e5; --cyan:#0891b2; --teal:#0e7490;
+  --ink:#0f172a; --sub:#64748b; --line:#e6eaf0;
+  --amber:#b45309; --amber-ink:#7c3d06; --amber-bg:#fff7ed; --amber-line:#f4d7ad;
+  --font:'Pretendard','Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased;}
+.slide{background:linear-gradient(180deg,#ffffff 0%,#f6f9fd 100%);}
+.fig-elabel{font-size:14px;}                 /* 덱 라벨 하한 14px */
+
+/* ---- 공통 ---- */
+.kick{font-size:15px;font-weight:800;letter-spacing:.2em;color:var(--blue);}
+.s-title{font-size:32px;font-weight:800;letter-spacing:-.02em;}
+.s-title .g{background:linear-gradient(90deg,var(--blue),var(--indigo));-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+/* ---- 1: 타이틀 ---- */
+.t-big{font-size:56px;font-weight:800;letter-spacing:-.025em;line-height:1.22;}
+.t-sub{font-size:21px;color:var(--sub);line-height:1.6;}
+.t-meta{font-size:15px;color:#94a3b8;font-weight:600;}
+.t-band{width:100%;height:100%;border-radius:20px;
+  background:radial-gradient(640px 340px at 78% 30%,#e7efff 0%,rgba(231,239,255,0) 65%),
+             linear-gradient(135deg,#f2f6fd 0%,#ffffff 60%);
+  border:1px solid #e8edf5;}
+
+/* ---- 2: 원리 ---- */
+.inst{background:#fff;border:1px solid var(--line);border-radius:15px;
+  box-shadow:0 6px 18px rgba(20,30,60,.08);display:flex;align-items:center;gap:12px;padding:0 16px;}
+.inst .ii{width:42px;height:42px;border-radius:11px;background:#eef4ff;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.inst .ii svg{width:24px;height:24px;stroke:var(--blue);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.inst .nm{font-size:18px;font-weight:700;line-height:1.15;}
+.inst .dt{font-size:14px;color:#94a3b8;margin-top:3px;}
+.hubbody{width:100%;height:100%;border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#4f7cf0 0%,#2563eb 46%,#1e3aa8 100%);
+  box-shadow:0 16px 40px rgba(37,99,235,.42),inset 0 2px 8px rgba(255,255,255,.25);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;}
+.hubbody svg{width:40px;height:40px;stroke:#fff;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:.95;margin-bottom:5px;}
+.hubbody .hl{font-size:21px;font-weight:800;line-height:1.2;}
+.hubbody .hs{font-size:14px;font-weight:600;opacity:.85;margin-top:2px;}
+.quote .q{font-size:30px;font-weight:800;line-height:1.3;letter-spacing:-.02em;}
+.quote .q em{font-style:normal;color:var(--blue);}
+.quote .qs{font-size:16px;line-height:1.6;color:var(--sub);margin-top:12px;padding-left:14px;border-left:3px solid #dbe6ff;}
+.cap{font-size:14px;color:#94a3b8;}
+.cap b{color:#475569;}
+
+/* ---- 3: 장점 ---- */
+.tcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 24px;
+  box-shadow:0 8px 24px rgba(20,30,60,.07);position:relative;overflow:hidden;width:100%;height:100%;}
+.tcard::before{content:"";position:absolute;left:0;top:0;width:100%;height:5px;}
+.tcard.c1::before{background:var(--blue)} .tcard.c2::before{background:var(--indigo)} .tcard.c3::before{background:var(--cyan)}
+.tcard .th{font-size:22px;font-weight:800;margin:6px 0 14px;}
+.tcard.c1 .th{color:var(--blue)} .tcard.c2 .th{color:var(--indigo)} .tcard.c3 .th{color:var(--cyan)}
+.brow{display:flex;gap:13px;align-items:flex-start;padding:12px 0;}
+.brow + .brow{border-top:1px dashed #eef1f6;}
+.brow .bi{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.brow .bi svg{width:23px;height:23px;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.tcard.c1 .bi{background:#eaf1ff}.tcard.c1 .bi svg{stroke:var(--blue)}
+.tcard.c2 .bi{background:#eeecff}.tcard.c2 .bi svg{stroke:var(--indigo)}
+.tcard.c3 .bi{background:#e6f6fb}.tcard.c3 .bi svg{stroke:var(--cyan)}
+.brow .bh{font-size:18px;font-weight:700;line-height:1.3}
+.brow .bd{font-size:16px;color:var(--sub);line-height:1.5;margin-top:3px}
+/* 카드 확대(focus) 시 아래 여백에 뜨는 테마 애니메이션 */
+.card-anim{margin-top:18px;text-align:center;opacity:0;transform:translateY(10px);
+  transition:opacity .5s ease,transform .5s ease;}
+.fig-node.deck-focus .card-anim{opacity:1;transform:none;}
+body.fig-editing:not(.deck-step-preview) .card-anim{opacity:1;transform:none;}
+.card-anim svg{width:116px;height:116px;display:block;margin:0 auto 8px;overflow:visible;}
+.card-anim .ca-cap{font-size:16px;color:var(--sub);line-height:1.4;}
+.tcard.c1 .ca-cap b{color:var(--blue)} .tcard.c2 .ca-cap b{color:var(--indigo)} .tcard.c3 .ca-cap b{color:var(--cyan)}
+.ca1-shield{fill:#eaf1ff;stroke:var(--blue);stroke-width:3;stroke-linejoin:round;}
+.ca1-check{fill:none;stroke:var(--blue);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;}
+.ca1-ring{fill:none;stroke:var(--blue);stroke-width:2.5;transform-origin:60px 60px;opacity:0;}
+@keyframes ca1Pulse{0%{transform:scale(.45);opacity:.55}80%{opacity:0}100%{transform:scale(1.5);opacity:0}}
+.fig-node.deck-focus .ca1-ring,body.fig-editing:not(.deck-step-preview) .ca1-ring{animation:ca1Pulse 1.9s ease-out infinite;}
+.ca2-line{stroke:var(--indigo);stroke-width:2.4;stroke-dasharray:5 5;stroke-linecap:round;}
+@keyframes ca2Flow{to{stroke-dashoffset:-20;}}
+.fig-node.deck-focus .ca2-line,body.fig-editing:not(.deck-step-preview) .ca2-line{animation:ca2Flow .9s linear infinite;}
+.ca2-node,.ca2-core{fill:var(--indigo);}
+@keyframes ca2Pulse{0%,100%{opacity:.45}50%{opacity:1}}
+.fig-node.deck-focus .ca2-node,body.fig-editing:not(.deck-step-preview) .ca2-node{animation:ca2Pulse 1.5s ease-in-out infinite;}
+.ca3-core{fill:var(--cyan);}
+.ca3-ring{fill:none;stroke:var(--cyan);stroke-width:2.6;transform-origin:60px 60px;opacity:0;}
+@keyframes ca3Ripple{0%{transform:scale(.22);opacity:.7}100%{transform:scale(1.7);opacity:0}}
+.fig-node.deck-focus .ca3-ring,body.fig-editing:not(.deck-step-preview) .ca3-ring{animation:ca3Ripple 1.6s ease-out infinite;}
+
+/* ---- 4: 과제 ---- */
+.cband{background:var(--amber-bg);border:1px solid var(--amber-line);border-radius:18px;
+  padding:24px 28px;width:100%;height:100%;}
+.cband .lbl{font-size:22px;font-weight:800;color:var(--amber);margin-bottom:18px;}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;}
+.citem{display:flex;gap:13px;align-items:flex-start;}
+.citem .ci{width:40px;height:40px;border-radius:11px;background:#fff;border:1px solid var(--amber-line);
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.citem .ci svg{width:22px;height:22px;stroke:var(--amber);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.citem .chh{font-size:18px;font-weight:700;line-height:1.25}
+.citem .cdd{font-size:15px;color:#9a6a3a;line-height:1.5;margin-top:3px}
+.closing{background:#eef4ff;border:1px solid #c9dcff;border-radius:16px;padding:20px 26px;
+  font-size:21px;font-weight:700;line-height:1.5;color:#1e3a8a;width:100%;height:100%;
+  display:flex;align-items:center;}
+.closing b{color:var(--blue);}
+
+/* ---- 5: 여정형 캔버스 (넓은 캔버스라 글자를 크게. 전체 보기에서도 하한 유지) ---- */
+.j-t{font-size:40px;font-weight:800;letter-spacing:-.02em;}
+.j-pill{background:#fff;border:1px solid var(--line);border-radius:16px;display:flex;align-items:center;
+  padding:0 24px;font-size:26px;font-weight:700;box-shadow:0 6px 18px rgba(20,30,60,.08);width:100%;height:100%;}
+.j-hub{width:100%;height:100%;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-size:28px;font-weight:800;line-height:1.3;padding:20px;
+  background:radial-gradient(circle at 38% 32%,#4f7cf0 0%,#2563eb 46%,#1e3aa8 100%);
+  box-shadow:0 16px 40px rgba(37,99,235,.4);}
+.j-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 30px;width:100%;height:100%;
+  box-shadow:0 8px 24px rgba(20,30,60,.07);}
+.j-card .h{font-size:28px;font-weight:800;}
+.j-card .d{font-size:25px;color:var(--sub);margin-top:8px;line-height:1.4;}
+.j-card.c1 .h{color:var(--blue)} .j-card.c2 .h{color:var(--indigo)} .j-card.c3 .h{color:var(--cyan)}
+.j-list{background:var(--amber-bg);border:1px solid var(--amber-line);border-radius:18px;padding:24px 30px;width:100%;height:100%;}
+.j-list div{font-size:26px;color:var(--amber-ink);font-weight:600;padding:6px 0;}
+.j-list div b{color:var(--amber);}
+.j-ans{background:#eef4ff;border:2px solid #93b8f8;border-radius:18px;padding:26px 30px;width:100%;height:100%;
+  font-size:26px;font-weight:700;line-height:1.5;color:#1e3a8a;display:flex;align-items:center;}
+.j-cap{font-size:25px;color:var(--sub);}
+</style>
+<style id="fig-editor-css">
+/*__FIG_EDITOR_CSS__*/
+</style>
+<style id="deck-runtime-css">
+/*__DECK_CSS__*/
+</style>
+</head>
+<body>
+
+<div class="deck" data-slide-size="1280x720">
+
+  <!-- ============ 1. 타이틀 ============ -->
+  <section class="slide" data-title="타이틀">
+    <div class="fig-canvas" data-size="1280x720">
+      <div class="fig-node" id="s1-band" style="left:60px;top:56px;width:1160px;height:608px;background:transparent;border:none;padding:0">
+        <div class="t-band"></div>
+      </div>
+      <div class="fig-node kick" id="s1-kick" style="left:140px;top:200px;width:700px;background:transparent;border:none">K-MELLODDY · FEDERATED LEARNING</div>
+      <div class="fig-node t-big" id="s1-title" style="left:140px;top:238px;width:900px;background:transparent;border:none">
+        연합학습으로 여는<br>안전한 <span style="color:#2563eb">데이터 협력</span>
+      </div>
+      <div class="fig-node t-sub" id="s1-sub" style="left:140px;top:420px;width:760px;background:transparent;border:none">
+        데이터는 기관 밖으로 나가지 않습니다.<br>AI의 학습 능력만 모여 하나의 모델이 됩니다.
+      </div>
+      <div class="fig-node t-meta" id="s1-meta" style="left:140px;top:560px;width:600px;background:transparent;border:none">
+        K-MELLODDY 사업단 · 2026. 7.
+      </div>
+    </div>
+    <aside class="notes">인사 후 30초. 오늘의 한 문장: "데이터는 그대로, 학습만 오간다"를 먼저 말하고 시작.</aside>
+  </section>
+
+  <!-- ============ 2. 작동 원리 ============ -->
+  <section class="slide" data-title="작동 원리">
+    <div class="fig-canvas" data-size="1280x720">
+      <div class="fig-node s-title" id="s2-title" style="left:64px;top:48px;width:1000px;background:transparent;border:none">
+        작동 원리. <span class="g">데이터는 그대로, 학습만 오간다</span>
+      </div>
+
+      <div class="fig-node inst" id="s2-hosp" style="left:64px;top:160px;width:210px;height:76px">
+        <span class="ii"><svg viewBox="0 0 24 24"><path d="M4 21V7l8-4 8 4v14"/><path d="M4 21h16"/><path d="M12 8v6M9 11h6"/></svg></span>
+        <div><div class="nm">병원</div><div class="dt">데이터 보관</div></div>
+      </div>
+      <div class="fig-node inst" id="s2-pharma" style="left:64px;top:295px;width:210px;height:76px">
+        <span class="ii"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M12 8v8"/></svg></span>
+        <div><div class="nm">제약기업</div><div class="dt">데이터 보관</div></div>
+      </div>
+      <div class="fig-node inst" id="s2-univ" style="left:64px;top:430px;width:210px;height:76px">
+        <span class="ii"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span>
+        <div><div class="nm">대학·연구소</div><div class="dt">데이터 보관</div></div>
+      </div>
+      <div class="fig-node cap" id="s2-cap" style="left:64px;top:588px;width:500px;background:transparent;border:none">
+        <b>바이오벤처·기관</b> 등 다수 참여. 원본 데이터는 각자 보관
+      </div>
+
+      <div class="fig-node" id="s2-hub" style="left:560px;top:230px;width:190px;height:190px;background:transparent;border:none" data-step="1">
+        <div class="hubbody">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="17" r="2.2"/><circle cx="19" cy="17" r="2.2"/><path d="M11 6.8L6 15M13 6.8L18 15M7 17h10"/></svg>
+          <div class="hl">글로벌</div><div class="hs">AI 모델</div>
+        </div>
+      </div>
+
+      <div class="fig-node quote" id="s2-quote" style="left:876px;top:235px;width:354px;background:transparent;border:none" data-step="3">
+        <div class="q">데이터는 그대로,<br><em>학습만</em> 오간다</div>
+        <div class="qs">모인 것은 학습 능력(가중치)뿐. 완성된 모델은 다시 모든 기관에 배포됩니다.</div>
+      </div>
+
+      <div class="fig-edge" id="e2-h" data-from="s2-hosp" data-to="s2-hub" data-style="dashed" data-color="#2563eb" data-width="2.4" data-curve="0.16" data-arrow="end" data-step="1"></div>
+      <div class="fig-edge" id="e2-p" data-from="s2-pharma" data-to="s2-hub" data-style="dashed" data-color="#2563eb" data-width="2.4" data-arrow="end" data-label="학습(가중치)만 전송" data-step="1"></div>
+      <div class="fig-edge" id="e2-u" data-from="s2-univ" data-to="s2-hub" data-style="dashed" data-color="#2563eb" data-width="2.4" data-curve="-0.16" data-arrow="end" data-step="1"></div>
+      <div class="fig-edge" id="e2-back" data-from="s2-hub" data-to="s2-univ" data-anchor-from="bottom" data-anchor-to="1,0.528" data-color="#0e7490" data-width="2.8" data-curve="-0.22" data-arrow="end" data-label="완성 모델 재배포" data-step="3"></div>
+      <div class="fig-edge" id="e2-back-p" data-from="s2-hub" data-to="s2-pharma" data-anchor-from="0.224,0.917" data-anchor-to="1,0.855" data-color="#0e7490" data-width="2.8" data-curve="-0.37" data-arrow="end" data-step="3"></div>
+      <div class="fig-edge" id="e2-back-h" data-from="s2-hub" data-to="s2-hosp" data-anchor-from="0.064,0.256" data-anchor-to="1,0.511" data-color="#0e7490" data-width="2.8" data-curve="0.25" data-arrow="end" data-step="3"></div>
+
+      <i class="fx" data-step="1" data-fx="flow" data-target="#e2-h"></i>
+      <i class="fx" data-step="1" data-fx="flow" data-target="#e2-p"></i>
+      <i class="fx" data-step="1" data-fx="flow" data-target="#e2-u"></i>
+      <i class="fx" data-step="2" data-fx="focus" data-target="#s2-hub" data-zoom="2"></i>
+      <i class="fx" data-step="3" data-fx="reset"></i>
+      <i class="fx" data-step="3" data-fx="flow" data-target="#e2-back"></i>
+      <i class="fx" data-step="3" data-fx="flow" data-target="#e2-back-p"></i>
+      <i class="fx" data-step="3" data-fx="flow" data-target="#e2-back-h"></i>
+    </div>
+    <aside class="notes">장면 1: 전송 흐름. "옮기는 건 데이터가 아니라 학습 능력". 장면 2: 허브 확대. 가중치 취합 설명. 장면 3: 재배포와 핵심 문장.</aside>
+  </section>
+
+  <!-- ============ 3. 장점 ============ -->
+  <section class="slide" data-title="장점" data-transition="flow">
+    <div class="fig-canvas" data-size="1280x720">
+      <div class="fig-node s-title" id="s3-title" style="left:64px;top:48px;width:900px;background:transparent;border:none">
+        무엇을 얻는가. <span class="g">장점</span>
+      </div>
+
+      <div class="fig-node" id="s3-c1" style="left:64px;top:150px;width:368px;height:470px;background:transparent;border:none;padding:0" data-step="1">
+        <div class="tcard c1">
+          <div class="th">안전한 데이터 활용</div>
+          <div class="brow"><span class="bi"><svg viewBox="0 0 24 24"><path d="M12 3l7 2.6v5.1c0 4.4-3 7.4-7 8.9-4-1.5-7-4.5-7-8.9V5.6L12 3z"/><path d="M9 12l2 2 4-4"/></svg></span><div><div class="bh">개인정보보호</div><div class="bd">원본 비이동. 구조적으로 안전</div></div></div>
+          <div class="brow"><span class="bi"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 14l2 2 3.3-3.4"/></svg></span><div><div class="bh">IRB/DRB 간소화</div><div class="bd">사용 목적이 처음부터 한정</div></div></div>
+          <div class="card-anim">
+            <svg viewBox="0 0 120 120">
+              <circle class="ca1-ring" cx="60" cy="60" r="30"/>
+              <circle class="ca1-ring" cx="60" cy="60" r="30" style="animation-delay:.95s"/>
+              <path class="ca1-shield" d="M60 30l24 9v15c0 14-10 24-24 29-14-5-24-15-24-29V39l24-9z"/>
+              <path class="ca1-check" d="M50 60l7 7 14-14"/>
+            </svg>
+            <div class="ca-cap">원본은 그대로 · <b>학습만</b> 이동</div>
+          </div>
+        </div>
+      </div>
+      <div class="fig-node" id="s3-c2" style="left:456px;top:150px;width:368px;height:470px;background:transparent;border:none;padding:0" data-step="2">
+        <div class="tcard c2">
+          <div class="th">다기관 협력·평가</div>
+          <div class="brow"><span class="bi"><svg viewBox="0 0 24 24"><circle cx="6" cy="7" r="2"/><circle cx="18" cy="7" r="2"/><circle cx="12" cy="17.5" r="2"/><path d="M7.6 8.4l3 7.2M16.4 8.4l-3 7.2M8 7h8"/></svg></span><div><div class="bh">공동 AI 개발</div><div class="bd">경쟁 기관 간에도 안전한 협력</div></div></div>
+          <div class="brow"><span class="bi"><svg viewBox="0 0 24 24"><path d="M5 20V11M12 20V5M19 20v-6"/><path d="M4 20h16"/></svg></span><div><div class="bh">기여도 측정</div><div class="bd">기관별 데이터 가치 평가 → 인센티브</div></div></div>
+          <div class="card-anim">
+            <svg viewBox="0 0 120 120">
+              <line class="ca2-line" x1="60" y1="24" x2="60" y2="60"/>
+              <line class="ca2-line" x1="28" y1="90" x2="60" y2="60"/>
+              <line class="ca2-line" x1="92" y1="90" x2="60" y2="60"/>
+              <circle class="ca2-node" cx="60" cy="24" r="8"/>
+              <circle class="ca2-node" cx="28" cy="90" r="8" style="animation-delay:.5s"/>
+              <circle class="ca2-node" cx="92" cy="90" r="8" style="animation-delay:1s"/>
+              <circle class="ca2-core" cx="60" cy="60" r="11"/>
+            </svg>
+            <div class="ca-cap">여러 기관이 <b>하나의 모델</b>로</div>
+          </div>
+        </div>
+      </div>
+      <div class="fig-node" id="s3-c3" style="left:848px;top:150px;width:368px;height:470px;background:transparent;border:none;padding:0" data-step="3">
+        <div class="tcard c3">
+          <div class="th">빠른 개발·확산</div>
+          <div class="brow"><span class="bi"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5.6 20a6.4 6.4 0 0 1 12.8 0"/></svg></span><div><div class="bh">개발자 참여 용이</div><div class="bd">다양한 데이터로 학습·즉시 배포</div></div></div>
+          <div class="brow"><span class="bi"><svg viewBox="0 0 24 24"><path d="M13 3L5 13.5h5.2L10 21l8-10.5h-5.2L13 3z"/></svg></span><div><div class="bh">빠른 모델 배포</div><div class="bd">팬데믹 등 신규 모델 즉시 확산</div></div></div>
+          <div class="card-anim">
+            <svg viewBox="0 0 120 120">
+              <circle class="ca3-ring" cx="60" cy="60" r="34"/>
+              <circle class="ca3-ring" cx="60" cy="60" r="34" style="animation-delay:.53s"/>
+              <circle class="ca3-ring" cx="60" cy="60" r="34" style="animation-delay:1.06s"/>
+              <circle class="ca3-core" cx="60" cy="60" r="12"/>
+            </svg>
+            <div class="ca-cap">만든 모델을 <b>즉시 확산</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fig-node cap" id="s3-cap" style="left:64px;top:648px;width:900px;background:transparent;border:none">
+        여섯 가지 장점은 모두 <b>"데이터 비이동"</b>이라는 한 가지 원리에서 나옵니다.
+      </div>
+
+      <i class="fx" data-step="4" data-fx="focus" data-target="#s3-c1" data-zoom="1.5"></i>
+      <i class="fx" data-step="5" data-fx="focus" data-target="#s3-c2" data-zoom="1.5"></i>
+      <i class="fx" data-step="6" data-fx="focus" data-target="#s3-c3" data-zoom="1.5"></i>
+    </div>
+    <aside class="notes">1~3: 카드 하나씩 공개(전체 조망). 4~6: 카드를 하나씩 확대하며 아래 여백의 테마 애니메이션으로 설명. 안전(보호 펄스)·협력(기관→모델)·확산(즉시 배포).</aside>
+  </section>
+
+  <!-- ============ 4. 남은 과제 ============ -->
+  <section class="slide" data-title="남은 과제">
+    <div class="fig-canvas" data-size="1280x720">
+      <div class="fig-node s-title" id="s4-title" style="left:64px;top:48px;width:900px;background:transparent;border:none">
+        남은 과제. <span style="color:#b45309">제도와 운영</span>
+      </div>
+
+      <div class="fig-node" id="s4-band" style="left:64px;top:150px;width:1152px;height:300px;background:transparent;border:none;padding:0">
+        <div class="cband">
+          <div class="lbl">기술 결함이 아니라 도입 여건의 문제</div>
+          <div class="cgrid">
+            <div class="citem" data-step="1"><span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.4 2.4 0 1 1 3.4 2.2c-.8.4-1 .8-1 1.6"/><path d="M12 16.4v.02"/></svg></span><div><div class="chh">이해 난이도</div><div class="cdd">원리·장점을 직관적으로 이해하기 어려움</div></div></div>
+            <div class="citem" data-step="1"><span class="ci"><svg viewBox="0 0 24 24"><path d="M12 3v18M6 21h12M4.5 7.5h15"/><path d="M4.5 7.5L2.5 13a2.6 2.6 0 0 0 4 0zM19.5 7.5L17.5 13a2.6 2.6 0 0 0 4 0z"/></svg></span><div><div class="chh">대형 기관 참여 주저</div><div class="cdd">'상대적 손해' 인식 → 인센티브 제도 필요</div></div></div>
+            <div class="citem" data-step="2"><span class="ci"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M15 3v3h3"/><path d="M9 11h6M9 14h6M9 17h4"/></svg></span><div><div class="chh">법제화 미비</div><div class="cdd">안심하고 도입할 법적 근거 부재</div></div></div>
+            <div class="citem" data-step="2"><span class="ci"><svg viewBox="0 0 24 24"><path d="M4 21V8l7-4 7 4v13"/><path d="M4 21h16"/><path d="M9 21v-4h4v4"/></svg></span><div><div class="chh">중립 운영조직</div><div class="cdd">모델·데이터·참여범위 의사결정 주체</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fig-node" id="s4-close" style="left:64px;top:490px;width:1152px;height:150px;background:transparent;border:none;padding:0" data-step="3">
+        <div class="closing">
+          네 과제는 모두 제도·운영으로 해소 가능합니다.&nbsp;
+          <b>K-MELLODDY가 그 해답을 실증하고 있습니다.</b>
+        </div>
+      </div>
+
+      <i class="fx" data-step="3" data-fx="pulse" data-target="#s4-close"></i>
+    </div>
+    <aside class="notes">과제 2개씩 공개. 마지막 문장에서 멈추고 질의응답으로 전환.</aside>
+  </section>
+
+  <!-- ============ 5. 한눈에 보기. 여정형 캔버스 (경계 없는 전환 데모) ============ -->
+  <section class="slide" data-title="한눈에 보기" data-transition="zoom-out">
+    <div class="fig-canvas" data-size="2200x720">
+
+      <!-- ① 원리 (좌측 영역: 0~780) -->
+      <div class="fig-node j-t" id="j-ta" style="left:40px;top:44px;width:700px;background:transparent;border:none">① 원리. 데이터는 그대로</div>
+      <div class="fig-node j-pill" id="j-p1" style="left:40px;top:150px;width:250px;height:72px;padding:0">
+        <span style="padding:0 24px">병원</span></div>
+      <div class="fig-node j-pill" id="j-p2" style="left:40px;top:260px;width:250px;height:72px;padding:0">
+        <span style="padding:0 24px">제약기업</span></div>
+      <div class="fig-node j-pill" id="j-p3" style="left:40px;top:370px;width:250px;height:72px;padding:0">
+        <span style="padding:0 24px">대학·연구소</span></div>
+      <div class="fig-node" id="j-hub" style="left:480px;top:210px;width:200px;height:200px;background:transparent;border:none;padding:0">
+        <div class="j-hub">글로벌<br>AI 모델</div>
+      </div>
+      <div class="fig-node j-cap" id="j-cap" style="left:40px;top:520px;width:660px;background:transparent;border:none">
+        학습(가중치)만 모여 하나의 모델이 됩니다
+      </div>
+      <div class="fig-edge" data-from="j-p1" data-to="j-hub" data-style="dashed" data-color="#2563eb" data-width="3" data-curve="0.15" data-arrow="end"></div>
+      <div class="fig-edge" data-from="j-p2" data-to="j-hub" data-style="dashed" data-color="#2563eb" data-width="3" data-arrow="end"></div>
+      <div class="fig-edge" data-from="j-p3" data-to="j-hub" data-style="dashed" data-color="#2563eb" data-width="3" data-curve="-0.15" data-arrow="end"></div>
+
+      <!-- ② 장점 (중앙 영역: 820~1440). 줌아웃과 함께 등장 -->
+      <div class="fig-node j-t" id="j-tb" style="left:820px;top:44px;width:600px;background:transparent;border:none" data-step="1">② 무엇을 얻는가</div>
+      <div class="fig-node" id="j-c1" style="left:820px;top:150px;width:600px;height:150px;background:transparent;border:none;padding:0" data-step="1">
+        <div class="j-card c1"><div class="h">안전한 데이터 활용</div><div class="d">원본 비이동 · IRB/DRB 간소화</div></div>
+      </div>
+      <div class="fig-node" id="j-c2" style="left:820px;top:330px;width:600px;height:150px;background:transparent;border:none;padding:0" data-step="1">
+        <div class="j-card c2"><div class="h">다기관 협력·평가</div><div class="d">경쟁 기관 간 협력 · 기여도 측정</div></div>
+      </div>
+      <div class="fig-node" id="j-c3" style="left:820px;top:510px;width:600px;height:150px;background:transparent;border:none;padding:0" data-step="1">
+        <div class="j-card c3"><div class="h">빠른 개발·확산</div><div class="d">즉시 배포 · 팬데믹 대응</div></div>
+      </div>
+
+      <!-- ③ 과제와 해답 (우측 영역: 1500~2160). 우측 팬과 함께 설명 등장 -->
+      <div class="fig-node j-t" id="j-tc" style="left:1500px;top:44px;width:640px;background:transparent;border:none" data-step="1">③ 남은 과제와 해답</div>
+      <div class="fig-node" id="j-list" style="left:1500px;top:150px;width:660px;height:270px;background:transparent;border:none;padding:0" data-step="1">
+        <div class="j-list">
+          <div><b>이해 난이도</b>. 원리의 직관적 전달</div>
+          <div><b>참여 주저</b>. 인센티브 제도</div>
+          <div><b>법제화 미비</b>. 법적 근거</div>
+          <div><b>운영조직</b>. 중립적 의사결정</div>
+        </div>
+      </div>
+      <div class="fig-node" id="j-ans" style="left:1500px;top:460px;width:660px;height:200px;background:transparent;border:none;padding:0" data-step="2">
+        <div class="j-ans">모두 제도·운영으로 해소 가능합니다.<br>K-MELLODDY가 그 해답을 실증하고 있습니다.</div>
+      </div>
+
+      <!-- 카메라 여정: 원리 확대 → 줌아웃(전체) → 우측 팬 -->
+      <i class="fx" data-step="0" data-fx="view" data-rect="0,0,780,720"></i>
+      <i class="fx" data-step="1" data-fx="view" data-rect="0,0,2200,720"></i>
+      <i class="fx" data-step="2" data-fx="view" data-rect="1460,0,740,720"></i>
+      <i class="fx" data-step="2" data-fx="pulse" data-target="#j-ans"></i>
+    </div>
+    <aside class="notes">여정형 캔버스: 장면 1에서 줌아웃하며 전체 그림이 드러나고("이 원리가 이 모든 것으로"), 장면 2에서 우측으로 팬하며 해답 등장. 페이지 경계 없이 한 캔버스로 마무리.</aside>
+  </section>
+
+</div>
+
+<script>
+/*__FIG_EDITOR_JS__*/
+</script>
+<script>
+/*__DECK_JS__*/
+</script>
+</body>
+</html>
