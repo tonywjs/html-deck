@@ -44,14 +44,13 @@ for k in order:
     has_mp4 = (here / 'videos' / f'{k}.mp4').exists()
     if has_gif:
         gal.append((k, f'videos/{k}.gif'))
-    links = [f"[영상 mp4](videos/{k}.mp4)"] if has_mp4 else []
+    links = [f"[큰 화면으로 보기](videos/{k}.gif)"] if has_gif else []
+    if has_mp4:
+        links.append(f"[원본 속도 mp4 내려받기](videos/{k}.mp4)")
     links.append(f"[deck.html]({k}/deck.html)")
     if (here / k / 'report.md').exists():
         links.append(f"[report.md]({k}/report.md)")
-    media = ''
-    if has_gif:
-        media = (f'<a href="videos/{k}.mp4"><img src="videos/{k}.gif" width="640"></a>\n\n'
-                 if has_mp4 else f'<img src="videos/{k}.gif" width="640">\n')
+    media = f'<a href="videos/{k}.gif"><img src="videos/{k}.gif" width="640"></a>\n\n' if has_gif else ''
     sections.append(f"### {names[k]}\n\n{' · '.join(links)}\n\n{NOTES.get(k, '')}\n\n{media}")
 
 H1 = ("| 모델 | 생각 강도 | 슬라이드 | 장면(최대) | 노드 | 엣지 | 채움 비율(%) | 최소 글자(px) | 엔진 무결 | 규약 | 문장부호 | 품질 스니펫 | 콘솔 0건 | 장면 진행 |\n"
@@ -63,8 +62,12 @@ notes_md = '\n'.join(f"- **{names[k]}**: {NOTES[k]}" for k in order if NOTES.get
 
 def gallery(prefix):
     # 그림을 누르면 덱 소스(코드)가 아니라 그 덱을 실제로 넘긴 영상이 열린다
-    cells = [f'<td align="center"><a href="{prefix}videos/{k}.mp4"><img src="{prefix}{j}" width="440"></a>'
-             f'<br><sub><b>{names[k]}</b><br>그림을 누르면 영상 · <a href="{prefix}{k}/deck.html">deck.html</a></sub></td>' for k, j in gal]
+    # 그림은 그 자리에서 재생되고, 누르면 같은 영상을 큰 화면으로 연다
+    cells = [f'<td align="center"><a href="{prefix}videos/{k}.gif"><img src="{prefix}{j}" width="440"></a>'
+             f'<br><sub><b>{names[k]}</b><br>'
+             f'<a href="{prefix}videos/{k}.gif">큰 화면</a> · '
+             f'<a href="{prefix}videos/{k}.mp4">mp4</a> · '
+             f'<a href="{prefix}{k}/deck.html">deck.html</a></sub></td>' for k, j in gal]
     trs = ''.join('<tr>' + ''.join(cells[i:i + 2]) + '</tr>' for i in range(0, len(cells), 2))
     return f'<table>{trs}</table>'
 
@@ -119,7 +122,7 @@ O 통과 · X 실패 · 채움 비율과 최소 글자는 슬라이드별 값. �
 
 ## 모델별 영상
 
-각 덱을 실제로 넘기며 녹화한 것입니다. 아래 움직이는 그림은 덱 전체를 2.5배속으로 줄인 것이고, 누르면 원래 속도의 mp4가 열립니다.
+각 덱을 실제로 넘기며 녹화한 것입니다. 아래 그림은 덱 전체를 2.5배속으로 줄인 것으로 이 자리에서 그대로 재생됩니다. 누르면 같은 영상이 큰 화면으로 열립니다. GitHub은 저장소 안의 mp4를 문서에서 재생하지 못하므로, 원본 속도로 보시려면 mp4를 내려받아 여세요.
 
 {chr(10).join(sections)}"""
 (here / 'README.md').write_text(cmp_md, encoding='utf-8')
