@@ -1,0 +1,29 @@
+html-deck 스킬로 발표 덱 하나를 만드는 모델 비교 실험입니다. 아래 규칙을 정확히 지키세요.
+
+1. 스킬을 읽고 그 워크플로를 따릅니다. 먼저 ~/.claude/skills/html-deck/SKILL.md 를 읽고, 그 문서가 REQUIRED BACKGROUND로 지정한 ~/.claude/skills/html-diagram/SKILL.md 도 읽습니다. 스킬 폴더(~/.claude/skills/) 안의 파일은 절대 수정하지 않습니다(읽기만).
+
+2. 비교 실험 오염 방지: 기존 예시(examples/demo-deck-src.html, examples/green-test-roadmap-src.html)는 주제가 다른 완성본입니다. 형식이 궁금하면 참고해도 되지만 구성·문구를 베끼지 마세요. 여러분의 덱은 처음부터 새로 설계합니다.
+
+3. 주제: "html-deck 편집기와 장면 기능을 가르치는 덱". 이 스킬이 제공하는 장면 연출을 청중에게 설명하는 발표자료를 만들되, 각 슬라이드가 그 기능을 실제로 쓰면서 스스로를 시연하게 합니다(예: 단계 공개를 설명하는 슬라이드는 실제로 요소가 단계적으로 나타나고, 줌인을 설명하는 슬라이드는 실제로 카메라가 줌인). 아래 기능을 모두 한 번 이상 사용합니다:
+   - 단계 공개 data-step (단일 n 과 범위 n-m 둘 다)
+   - 카메라 줌인 + 딤 (data-fx="focus", data-zoom)
+   - 흐름 화살표 (data-fx="flow" 또는 edge data-flow="on")
+   - 여정형 캔버스: 슬라이드보다 넓은 캔버스(예 data-size="2200x720") + data-fx="view"로 팬/줌아웃. 시작 장면(data-step="0" view) 포함
+   - 슬라이드 진입 전환 data-transition (rise/flow/zoom-in/zoom-out 중 서사에 맞게 최소 2종)
+   - 강조 pulse (data-fx="pulse")
+   - 초기화 reset (data-fx="reset")
+   - 발표자 노트: 모든 슬라이드에 aside.notes
+   - 편집 모드(⌘E)와 장면 타임라인을 청중에게 안내하는 내용 1개 이상
+   최소 5슬라이드. 슬라이드 크기 1280x720. 한국어. 스킬 규칙대로 이모지 금지, 줄표(em/en dash) 금지. 문서 스타일에 .fig-elabel{font-size:14px} 오버라이드 포함. 전문 발표자료 수준의 타이포그래피와 여백(SKILL.md의 타이포그래피·공간 기준 준수).
+
+4. 산출 경로: 현재 작업 폴더입니다. 소스는 deck-src.html(스켈레톤 구조 + 4개 플레이스홀더 유지)로 쓰고, 다음으로 조립합니다:
+     python3 ~/.claude/skills/html-deck/assets/build-template.py deck-src.html deck.html
+   조립본 deck.html 이 최종 산출물입니다. 작업 파일도 이 폴더 안에만 만드세요.
+
+5. 검증:
+   - 브라우저 도구가 있으면: 로컬 HTTP로 띄워(python3 -m http.server, 127.0.0.1) 콘솔 오류 0, SKILL.md의 품질 스니펫이 전 슬라이드 pass, → 로 끝까지 진행하고 ← 로 되돌릴 때 카메라·흐름이 복원되는지 확인합니다.
+   - 브라우저 도구가 없으면(Codex 등): 정적 검사로 대신합니다.
+       python3 ~/.claude/skills/html-deck/assets/static-check.py deck.html
+     결과가 pass:true 가 될 때까지 고치고, 브라우저 검증은 수행하지 못했다고 보고합니다.
+
+6. 마지막 메시지에 이 구조로 보고: (1) 산출 파일 경로와 크기 (2) 슬라이드 수, 장면(최대 step) 수, 노드 수, 엣지 수 (3) 정적 검사 결과 (4) 사용한 fx 종류·전환 프리셋·여정 캔버스 사용 여부 목록 (5) 어려웠던 점.

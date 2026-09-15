@@ -43,7 +43,11 @@ if old_shots.exists():
     shutil.rmtree(old_shots); print('  (이전 shots-jpg 제거)')
 
 # 저장소에 남으면 안 되는 것 정리
-for junk in list(dst.rglob('codex*.log')) + list(dst.rglob('_run-verify.js')) + list(dst.rglob('prompt.txt')) + list(dst.rglob('__pycache__')):
+# 주의: macOS 파일시스템은 대소문자를 구분하지 않아 rglob('prompt.txt')가 최상위 PROMPT.txt까지 잡는다.
+# 모델 폴더 안의 사본만 지운다.
+junk = list(dst.rglob('codex*.log')) + list(dst.rglob('_run-verify.js')) + list(dst.rglob('__pycache__'))
+junk += [q for q in dst.rglob('*.txt') if q.name.lower() == 'prompt.txt' and q.parent != dst]
+for junk in junk:
     if junk.is_dir():
         shutil.rmtree(junk)
     else:
