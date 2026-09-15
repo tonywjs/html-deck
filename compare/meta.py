@@ -5,6 +5,9 @@ order = ['fable51', 'opus5', 'sonnet5', 'gpt56-luna', 'gpt56-terra', 'gpt56-sol'
 EFFORT = {'fable51': '기본 (세션 상속)', 'opus5': '기본 (세션 상속)', 'sonnet5': '기본 (세션 상속)',
           'gpt56-luna': 'xhigh (Codex 기본값)', 'gpt56-terra': 'xhigh (Codex 기본값)', 'gpt56-sol': 'xhigh (Codex 기본값)',
           'gpt56-astra': 'xhigh (Codex 기본값)'}
+# 원본 속도 mp4는 릴리스 자산으로 붙였다. 저장소 안의 mp4는 GitHub 문서에서 재생되지 않기 때문이다.
+RELEASE = 'https://github.com/tonywjs/html-deck/releases/download/v1.0.0'
+
 # 실행 경로: Claude는 Claude Code 서브에이전트(모델 오버라이드), GPT는 Codex CLI codex exec
 RUNPATH = {'fable51': 'Claude Code 서브에이전트 (기준본)', 'opus5': 'Claude Code 서브에이전트', 'sonnet5': 'Claude Code 서브에이전트',
            'gpt56-luna': 'Codex CLI codex exec', 'gpt56-terra': 'Codex CLI codex exec', 'gpt56-sol': 'Codex CLI codex exec', 'gpt56-astra': 'Codex CLI codex exec'}

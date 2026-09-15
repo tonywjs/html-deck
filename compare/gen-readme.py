@@ -5,7 +5,7 @@ import json, pathlib, re, sys
 here = pathlib.Path(__file__).parent
 root = pathlib.Path.home() / '.claude/skills/html-deck'   # 루트 README는 스킬 저장소
 sys.path.insert(0, str(here))
-from meta import names, order, EFFORT, RUNPATH, SELFCHECK, NOTES, CAVEAT, FOOTNOTE, ASYMMETRY, quality_pass as _qp
+from meta import names, order, EFFORT, RUNPATH, SELFCHECK, NOTES, CAVEAT, FOOTNOTE, ASYMMETRY, RELEASE, quality_pass as _qp
 S = json.loads((here / 'static.json').read_text(encoding='utf-8'))
 V = json.loads((here / 'verify.json').read_text(encoding='utf-8')) if (here / 'verify.json').exists() else {}
 C = json.loads((here / 'console.json').read_text(encoding='utf-8')) if (here / 'console.json').exists() else {}
@@ -46,7 +46,7 @@ for k in order:
         gal.append((k, f'videos/{k}.gif'))
     links = [f"[큰 화면으로 보기](videos/{k}.gif)"] if has_gif else []
     if has_mp4:
-        links.append(f"[원본 속도 mp4 내려받기](videos/{k}.mp4)")
+        links.append(f"[원본 속도 mp4 내려받기]({RELEASE}/{k}.mp4)")
     links.append(f"[deck.html]({k}/deck.html)")
     if (here / k / 'report.md').exists():
         links.append(f"[report.md]({k}/report.md)")
@@ -66,7 +66,7 @@ def gallery(prefix):
     cells = [f'<td align="center"><a href="{prefix}videos/{k}.gif"><img src="{prefix}{j}" width="440"></a>'
              f'<br><sub><b>{names[k]}</b><br>'
              f'<a href="{prefix}videos/{k}.gif">큰 화면</a> · '
-             f'<a href="{prefix}videos/{k}.mp4">mp4</a> · '
+             f'<a href="{RELEASE}/{k}.mp4">mp4</a> · '
              f'<a href="{prefix}{k}/deck.html">deck.html</a></sub></td>' for k, j in gal]
     trs = ''.join('<tr>' + ''.join(cells[i:i + 2]) + '</tr>' for i in range(0, len(cells), 2))
     return f'<table>{trs}</table>'
@@ -122,7 +122,7 @@ O 통과 · X 실패 · 채움 비율과 최소 글자는 슬라이드별 값. �
 
 ## 모델별 영상
 
-각 덱을 실제로 넘기며 녹화한 것입니다. 아래 그림은 덱 전체를 2.5배속으로 줄인 것으로 이 자리에서 그대로 재생됩니다. 누르면 같은 영상이 큰 화면으로 열립니다. GitHub은 저장소 안의 mp4를 문서에서 재생하지 못하므로, 원본 속도로 보시려면 mp4를 내려받아 여세요.
+각 덱을 실제로 넘기며 녹화한 것입니다. 아래 그림은 덱 전체를 2.5배속으로 줄인 것으로 이 자리에서 그대로 재생됩니다. 누르면 같은 영상이 큰 화면으로 열립니다. GitHub은 저장소 안의 mp4를 문서에서 재생하지 못하고 video 태그도 지워 버리므로, 원본 속도 영상은 [릴리스 v1.0.0](https://github.com/tonywjs/html-deck/releases/tag/v1.0.0)의 자산으로 붙여 두었습니다. mp4 링크를 누르면 내려받습니다.
 
 {chr(10).join(sections)}"""
 (here / 'README.md').write_text(cmp_md, encoding='utf-8')
