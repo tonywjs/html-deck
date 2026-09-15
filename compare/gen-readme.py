@@ -40,18 +40,19 @@ for k in order:
                 f"{ok(con == 0) if con is not None else '-'} | {ok(v.get('reachEnd') and v.get('backOk')) if v.get('info') and not v.get('info', {}).get('noRuntime') else '-'} |")
     cov.append(f"| {names[k]} | {ok(fe['step'])} | {ok(fe['range'])} | {ok(fe['focus'])} | {ok(fe['flow'])} | {ok(fe['view'])} | "
                f"{ok(fe['pulse'])} | {ok(fe['reset'])} | {ok(fe['journey'])} | {fe['transition_presets']} | {ok(fe['notes_all'])} |")
-    if (here / 'shots-jpg' / f'{k}-full.jpg').exists():
-        jpgs = [f'shots-jpg/{k}-full.jpg']
-    else:
-        jpgs = ['shots-jpg/' + pathlib.Path(p).stem + '.jpg' for p in v.get('shots_local', []) if (here / 'shots-jpg' / (pathlib.Path(p).stem + '.jpg')).exists()]
-    if (here / 'shots-jpg' / f'{k}-0.jpg').exists():
-        gal.append((k, f'shots-jpg/{k}-0.jpg'))
-    elif v.get('shots_local'):
-        first = pathlib.Path(v['shots_local'][0]).stem + '.jpg'
-        if (here / 'shots-jpg' / first).exists():
-            gal.append((k, 'shots-jpg/' + first))
-    links = f"[deck.html]({k}/deck.html)" + (f" · [report.md]({k}/report.md)" if (here / k / 'report.md').exists() else '')
-    sections.append(f"### {names[k]}\n\n{links}\n\n{NOTES.get(k, '')}\n\n" + '\n'.join(f'<img src="{j}" width="900">' for j in jpgs) + '\n')
+    has_gif = (here / 'videos' / f'{k}.gif').exists()
+    has_mp4 = (here / 'videos' / f'{k}.mp4').exists()
+    if has_gif:
+        gal.append((k, f'videos/{k}.gif'))
+    links = [f"[영상 mp4](videos/{k}.mp4)"] if has_mp4 else []
+    links.append(f"[deck.html]({k}/deck.html)")
+    if (here / k / 'report.md').exists():
+        links.append(f"[report.md]({k}/report.md)")
+    media = ''
+    if has_gif:
+        media = (f'<a href="videos/{k}.mp4"><img src="videos/{k}.gif" width="640"></a>\n\n'
+                 if has_mp4 else f'<img src="videos/{k}.gif" width="640">\n')
+    sections.append(f"### {names[k]}\n\n{' · '.join(links)}\n\n{NOTES.get(k, '')}\n\n{media}")
 
 H1 = ("| 모델 | 생각 강도 | 슬라이드 | 장면(최대) | 노드 | 엣지 | 채움 비율(%) | 최소 글자(px) | 엔진 무결 | 규약 | 문장부호 | 품질 스니펫 | 콘솔 0건 | 장면 진행 |\n"
       "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n")
@@ -61,7 +62,9 @@ notes_md = '\n'.join(f"- **{names[k]}**: {NOTES[k]}" for k in order if NOTES.get
 
 
 def gallery(prefix):
-    cells = [f'<td align="center"><a href="{prefix}{k}/deck.html"><img src="{prefix}{j}" width="440"></a><br><sub>{names[k]}</sub></td>' for k, j in gal]
+    # 그림을 누르면 덱 소스(코드)가 아니라 그 덱을 실제로 넘긴 영상이 열린다
+    cells = [f'<td align="center"><a href="{prefix}videos/{k}.mp4"><img src="{prefix}{j}" width="440"></a>'
+             f'<br><sub><b>{names[k]}</b><br>그림을 누르면 영상 · <a href="{prefix}{k}/deck.html">deck.html</a></sub></td>' for k, j in gal]
     trs = ''.join('<tr>' + ''.join(cells[i:i + 2]) + '</tr>' for i in range(0, len(cells), 2))
     return f'<table>{trs}</table>'
 
@@ -109,11 +112,14 @@ O 통과 · X 실패 · 채움 비율과 최소 글자는 슬라이드별 값. �
 ## 하네스
 
 1. `compare-static.py`: 엔진·런타임 블록 무결성, 규약(id·좌표·화살표 참조·fx 대상·장면 연속·제목·노트), 줄표·이모지, 기능 커버리지 → `static.json`
-2. `run-verify.py [폴더…]`: Aside 브라우저 repl로 품질 스니펫, 장면 진행/역방향 복원, 슬라이드별 스크린샷 → `verify.json`, `shots/`
+2. `run-verify.py [폴더…]`: Aside 브라우저 repl로 품질 스니펫, 장면 진행/역방향 복원 → `verify.json`
+2-1. `record-deck.js` + `encode-video.py`: 헤드리스 Chrome 화면 스트리밍으로 덱을 실제로 넘기며 녹화 → `videos/<모델>.mp4`. `make-gifs.py`가 문서용 GIF를 만든다
 3. 콘솔 오류: 내장 Browser 패널의 `read_console_messages`로 확인해 `console.json`에 기록
 4. `compare-report.py`: 위 결과와 스크린샷을 합쳐 `index.html` 생성. `gen-readme.py`: 같은 데이터로 이 문서와 루트 README의 결과 블록 생성
 
-## 모델별 스크린샷
+## 모델별 영상
+
+각 덱을 실제로 넘기며 녹화한 것입니다. 아래 움직이는 그림은 덱 전체를 2.5배속으로 줄인 것이고, 누르면 원래 속도의 mp4가 열립니다.
 
 {chr(10).join(sections)}"""
 (here / 'README.md').write_text(cmp_md, encoding='utf-8')

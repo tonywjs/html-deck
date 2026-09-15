@@ -11,6 +11,7 @@ from meta import order
 dst.mkdir(parents=True, exist_ok=True)
 HARNESS = ['PROMPT.txt', 'meta.py', 'compare-static.py', 'compare-verify.js', 'run-verify.py',
            'compare-report.py', 'gen-readme.py', 'make-shots.py', 'sync-to-repo.py',
+           'record-deck.js', 'encode-video.py', 'make-gifs.py',
            'static.json', 'verify.json', 'console.json', 'README.md', 'index.html']
 copied = []
 for name in HARNESS:
@@ -28,12 +29,18 @@ for k in order:
     if (s / 'report.md').exists():
         shutil.copy(s / 'report.md', dst / k / 'report.md'); copied.append(f'{k}/report.md')
 
-# 스크린샷은 jpg만
-sj = src / 'shots-jpg'
-if sj.exists():
-    (dst / 'shots-jpg').mkdir(exist_ok=True)
-    for p in sorted(sj.glob('*.jpg')):
-        shutil.copy(p, dst / 'shots-jpg' / p.name); copied.append('shots-jpg/' + p.name)
+# 영상: 모델별 mp4(원래 속도)와 문서용 gif(2.5배속). 정지 스크린샷은 더 싣지 않는다
+vd = src / 'videos'
+if vd.exists():
+    (dst / 'videos').mkdir(exist_ok=True)
+    for p in sorted(list(vd.glob('*.mp4')) + list(vd.glob('*.gif'))):
+        if p.name == 'preview.gif':
+            continue   # 루트 README 대표 이미지는 docs/ 에 따로 둔다
+        shutil.copy(p, dst / 'videos' / p.name); copied.append('videos/' + p.name)
+# 예전 스크린샷 폴더가 남아 있으면 정리
+old_shots = dst / 'shots-jpg'
+if old_shots.exists():
+    shutil.rmtree(old_shots); print('  (이전 shots-jpg 제거)')
 
 # 저장소에 남으면 안 되는 것 정리
 for junk in list(dst.rglob('codex*.log')) + list(dst.rglob('_run-verify.js')) + list(dst.rglob('prompt.txt')) + list(dst.rglob('__pycache__')):

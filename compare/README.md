@@ -64,69 +64,79 @@ O 통과 · X 실패 · 채움 비율과 최소 글자는 슬라이드별 값. �
 - **GPT-5.6 sol**: 밝은 회백 바탕에 파랑과 주황 강조선을 쓴 안정적인 구성. 슬라이드마다 우상단에 시연 중인 속성 이름을 배지로 달아 무엇을 보여 주는 중인지 분명하다. focus 슬라이드의 카드 본문 글자가 매우 옅은 회색이라 크기는 기준을 넘지만 투사 환경에서는 대비가 부족해 보인다.
 - **GPT-5.6 astra**: GPT 넷 중 가장 길고(7슬라이드), 크림색 실험노트 톤을 끝까지 유지한다. 슬라이드마다 머리글 번호와 하단 요약 줄을 두어 흐름이 또렷하다. focus 카드 안에 실제 속성 표기를 적어 두어 시연과 설명이 한 덩어리로 읽힌다.
 
-채움 비율은 모든 장면을 펼친 상태에서 노드 bounding box가 슬라이드를 덮는 넓이라, 전면 배경판 노드 하나로도 100%가 된다. 채움 100%는 밀도가 아니라 배경판 사용을 뜻할 수 있다. 최소 글자는 넓은 여정형 캔버스의 축소율을 곱한 실측값이다. 스크린샷은 슬라이드 내용을 다 보이려고 모든 장면을 펼치고 카메라를 푼 상태로 찍었다. 그래서 여정형 캔버스 슬라이드는 캔버스가 덮지 못한 아래쪽이 비어 보이는데, 실제 발표에서는 view 카메라가 그 영역을 채운다. 같은 이유로 확대했을 때만 나타나도록 .deck-focus에 걸어 둔 설명은 이 스크린샷에 보이지 않아 카드 아래가 비어 보일 수 있다.
+채움 비율은 모든 장면을 펼친 상태에서 노드 bounding box가 슬라이드를 덮는 넓이라, 전면 배경판 노드 하나로도 100%가 된다. 채움 100%는 밀도가 아니라 배경판 사용을 뜻할 수 있다. 최소 글자는 넓은 여정형 캔버스의 축소율을 곱한 실측값이다. 영상은 덱을 처음부터 끝까지 실제로 넘기며 녹화한 것이고, 문서에 실린 움직이는 그림은 그 영상을 2.5배속으로 줄인 것이다. 원래 속도로 보려면 그림을 눌러 mp4를 연다.
 
 ## 하네스
 
 1. `compare-static.py`: 엔진·런타임 블록 무결성, 규약(id·좌표·화살표 참조·fx 대상·장면 연속·제목·노트), 줄표·이모지, 기능 커버리지 → `static.json`
-2. `run-verify.py [폴더…]`: Aside 브라우저 repl로 품질 스니펫, 장면 진행/역방향 복원, 슬라이드별 스크린샷 → `verify.json`, `shots/`
+2. `run-verify.py [폴더…]`: Aside 브라우저 repl로 품질 스니펫, 장면 진행/역방향 복원 → `verify.json`
+2-1. `record-deck.js` + `encode-video.py`: 헤드리스 Chrome 화면 스트리밍으로 덱을 실제로 넘기며 녹화 → `videos/<모델>.mp4`. `make-gifs.py`가 문서용 GIF를 만든다
 3. 콘솔 오류: 내장 Browser 패널의 `read_console_messages`로 확인해 `console.json`에 기록
 4. `compare-report.py`: 위 결과와 스크린샷을 합쳐 `index.html` 생성. `gen-readme.py`: 같은 데이터로 이 문서와 루트 README의 결과 블록 생성
 
-## 모델별 스크린샷
+## 모델별 영상
+
+각 덱을 실제로 넘기며 녹화한 것입니다. 아래 움직이는 그림은 덱 전체를 2.5배속으로 줄인 것이고, 누르면 원래 속도의 mp4가 열립니다.
 
 ### Claude Fable 5.1 (기준)
 
-[deck.html](fable51/deck.html) · [report.md](fable51/report.md)
+[영상 mp4](videos/fable51.mp4) · [deck.html](fable51/deck.html) · [report.md](fable51/report.md)
 
 8슬라이드로 가장 길고 발표자료보다 참고서에 가깝다. 단계 공개 슬라이드는 장면 0부터 3까지를 가로 타임라인으로 깔고 각 data-step 값이 실제로 어떻게 보이는지 카드로 붙였다. 전환 슬라이드는 다섯 프리셋을 각각 미니 도식으로 보여 주어 일곱 중 전환 설명이 가장 완전하다. 마지막 슬라이드에 fx 용어집과 산출 전 체크리스트를 붙여 덱이 레퍼런스 역할까지 한다. 타이틀 슬라이드 채움이 63%로 낮지만 SKILL.md가 간지 슬라이드를 예외로 둔 범위 안이다.
 
-<img src="shots-jpg/fable51-full.jpg" width="900">
+<a href="videos/fable51.mp4"><img src="videos/fable51.gif" width="640"></a>
+
 
 ### Claude Opus 5
 
-[deck.html](opus5/deck.html) · [report.md](opus5/report.md)
+[영상 mp4](videos/opus5.mp4) · [deck.html](opus5/deck.html) · [report.md](opus5/report.md)
 
 흰 바탕에 보라 강조를 쓴 절제된 구성. 단계 공개 슬라이드가 특히 좋다. 왼쪽 어두운 패널에 data-step 속성 표기를 나열하고 오른쪽에서 그 값들이 실제로 하나씩 쌓이며, 범위(2-3) 요소는 나타났다가 장면 4에서 사라지는 것까지 화면에서 보여 준다. 줌인 슬라이드는 카드 안에 .deck-focus로만 드러나는 설명을 숨겨 두어, 확대했을 때 비로소 채워지는 문서의 고급 패턴을 썼다.
 
-<img src="shots-jpg/opus5-full.jpg" width="900">
+<a href="videos/opus5.mp4"><img src="videos/opus5.gif" width="640"></a>
+
 
 ### Claude Sonnet 5
 
-[deck.html](sonnet5/deck.html) · [report.md](sonnet5/report.md)
+[영상 mp4](videos/sonnet5.mp4) · [deck.html](sonnet5/deck.html) · [report.md](sonnet5/report.md)
 
 보라 강조의 밝은 구성. 강조(pulse) 슬라이드를 아예 발표 전 점검 목록으로 만들어 기능 시연과 실무 점검을 겹쳐 놓은 발상이 좋다. 다만 마지막 편집 모드 슬라이드에서 실제 장면 타임라인 UI를 그 크기 그대로 옮기다 보니 글자가 11px까지 내려가 덱 하한 14px을 어겼다. 브라우저를 보지 못한 채 설계한 조건에서 드러난 유일한 실패다. 한편 이 모델은 정적 검사기가 본문에 설명으로 적힌 data-step 표기까지 속성으로 오인하는 오탐을 찾아내 우회했고, 그 지적을 받아 스킬의 검사기를 고쳤다.
 
-<img src="shots-jpg/sonnet5-full.jpg" width="900">
+<a href="videos/sonnet5.mp4"><img src="videos/sonnet5.gif" width="640"></a>
+
 
 ### GPT-5.6 luna
 
-[deck.html](gpt56-luna/deck.html) · [report.md](gpt56-luna/report.md)
+[영상 mp4](videos/gpt56-luna.mp4) · [deck.html](gpt56-luna/deck.html) · [report.md](gpt56-luna/report.md)
 
 남색과 파랑의 카드 격자로 정돈돼 있다. 단계 공개 슬라이드에서 단일 번호와 범위(2-3)를 카드 세 장으로 나란히 놓고 속성 표기를 어두운 띠에 담아, 시연과 설명이 한 화면에서 붙는다. 마지막 여정 캔버스는 시작·전체·팬 세 구간을 한 줄로 이어 카메라 이동을 이해시킨다.
 
-<img src="shots-jpg/gpt56-luna-full.jpg" width="900">
+<a href="videos/gpt56-luna.mp4"><img src="videos/gpt56-luna.gif" width="640"></a>
+
 
 ### GPT-5.6 terra
 
-[deck.html](gpt56-terra/deck.html) · [report.md](gpt56-terra/report.md)
+[영상 mp4](videos/gpt56-terra.mp4) · [deck.html](gpt56-terra/deck.html) · [report.md](gpt56-terra/report.md)
 
 짙은 남색과 청록의 어두운 테마로 일곱 중 개성이 가장 뚜렷하다. 장면마다 번호 배지를 달고 타임라인을 실제 트랙 그림으로 그렸다. 다만 두 번째 슬라이드에서 두 줄로 늘어난 제목이 바로 아래 본문 문단과 겹쳐 글자가 포개진다. 어두운 테마인데 슬라이드 바탕은 흰색이라 캔버스가 덮지 못한 아래쪽이 흰 띠로 보인다.
 
-<img src="shots-jpg/gpt56-terra-full.jpg" width="900">
+<a href="videos/gpt56-terra.mp4"><img src="videos/gpt56-terra.gif" width="640"></a>
+
 
 ### GPT-5.6 sol
 
-[deck.html](gpt56-sol/deck.html) · [report.md](gpt56-sol/report.md)
+[영상 mp4](videos/gpt56-sol.mp4) · [deck.html](gpt56-sol/deck.html) · [report.md](gpt56-sol/report.md)
 
 밝은 회백 바탕에 파랑과 주황 강조선을 쓴 안정적인 구성. 슬라이드마다 우상단에 시연 중인 속성 이름을 배지로 달아 무엇을 보여 주는 중인지 분명하다. focus 슬라이드의 카드 본문 글자가 매우 옅은 회색이라 크기는 기준을 넘지만 투사 환경에서는 대비가 부족해 보인다.
 
-<img src="shots-jpg/gpt56-sol-full.jpg" width="900">
+<a href="videos/gpt56-sol.mp4"><img src="videos/gpt56-sol.gif" width="640"></a>
+
 
 ### GPT-5.6 astra
 
-[deck.html](gpt56-astra/deck.html) · [report.md](gpt56-astra/report.md)
+[영상 mp4](videos/gpt56-astra.mp4) · [deck.html](gpt56-astra/deck.html) · [report.md](gpt56-astra/report.md)
 
 GPT 넷 중 가장 길고(7슬라이드), 크림색 실험노트 톤을 끝까지 유지한다. 슬라이드마다 머리글 번호와 하단 요약 줄을 두어 흐름이 또렷하다. focus 카드 안에 실제 속성 표기를 적어 두어 시연과 설명이 한 덩어리로 읽힌다.
 
-<img src="shots-jpg/gpt56-astra-full.jpg" width="900">
+<a href="videos/gpt56-astra.mp4"><img src="videos/gpt56-astra.gif" width="640"></a>
+
